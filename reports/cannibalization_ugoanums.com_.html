@@ -1,0 +1,1866 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Keyword Cannibalization Audit — https://ugoanums.com/</title>
+<style>
+  :root {
+    --bg: #F5F0EB;
+    --surface: #FDFAF7;
+    --surface2: #F5F0EB;
+    --surface3: #EDE8E3;
+    --border: #E5DDD5;
+    --border-light: #EBE4DC;
+    --text: #2C2825;
+    --text-secondary: #4A433D;
+    --text-muted: #8C7E74;
+    --accent: #1B4332;
+    --danger: #9A3412;
+    --warning: #92400E;
+    --success: #1B4332;
+    --shadow-sm: 0 1px 2px rgba(44,40,37,0.05), 0 1px 3px rgba(44,40,37,0.04);
+    --shadow-md: 0 2px 8px rgba(44,40,37,0.07), 0 1px 3px rgba(44,40,37,0.05);
+    --radius: 12px;
+    --radius-sm: 8px;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', Roboto, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    padding: 2.5rem 2rem;
+    -webkit-font-smoothing: antialiased;
+  }
+  .container { max-width: 1120px; margin: 0 auto; }
+
+  .report-header {
+    margin-bottom: 1.75rem;
+    display: flex; justify-content: space-between; align-items: flex-start;
+  }
+  .report-header-left h1 { font-size: 1.5rem; font-weight: 700; letter-spacing: -0.02em; }
+  .report-header-left .subtitle { color: var(--text-muted); font-size: 0.82rem; margin-top: 0.15rem; }
+  .report-author { text-align: right; flex-shrink: 0; }
+  .report-author .author-name { font-weight: 650; font-size: 0.88rem; }
+  .report-author .author-url { font-size: 0.78rem; color: var(--text-muted); }
+
+  .exec-summary {
+    font-size: 0.88rem; color: var(--text-secondary);
+    line-height: 1.7; margin-bottom: 2rem; max-width: 860px;
+  }
+
+  .summary-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(155px, 1fr));
+    gap: 0.75rem; margin-bottom: 2.5rem;
+  }
+  .stat-card {
+    background: var(--surface); border: 1px solid var(--border-light);
+    border-radius: var(--radius); padding: 1.1rem 1.25rem; box-shadow: var(--shadow-sm);
+  }
+  .stat-card .label {
+    font-size: 0.68rem; color: var(--text-muted); text-transform: uppercase;
+    letter-spacing: 0.06em; font-weight: 500; margin-bottom: 0.3rem;
+  }
+  .stat-card .value { font-size: 1.6rem; font-weight: 700; letter-spacing: -0.02em; }
+  .stat-card .value.danger { color: var(--danger); }
+  .stat-card .value.warning { color: var(--warning); }
+  .stat-card .value.success { color: var(--success); }
+  .stat-card .value.accent { color: var(--accent); }
+
+  .topic-group {
+    background: var(--surface); border: 1px solid var(--border-light);
+    border-radius: var(--radius); margin-bottom: 1.25rem;
+    box-shadow: var(--shadow-sm); overflow: hidden;
+  }
+  .topic-header {
+    padding: 1rem 1.5rem; display: flex; justify-content: space-between;
+    align-items: center; border-bottom: 1px solid var(--border-light);
+  }
+  .topic-title { font-weight: 650; font-size: 0.95rem; letter-spacing: -0.01em; }
+  .topic-count { color: var(--text-muted); font-size: 0.8rem; font-weight: 400; margin-left: 0.4rem; }
+  .topic-meta { display: flex; gap: 1.25rem; font-size: 0.78rem; color: var(--text-muted); font-weight: 500; }
+
+  .issue-card {
+    margin: 0.75rem; border: 1px solid var(--border); border-radius: var(--radius-sm);
+    overflow: hidden; background: var(--surface); box-shadow: var(--shadow-sm);
+    transition: box-shadow 0.15s ease;
+  }
+  .issue-card:hover { box-shadow: var(--shadow-md); }
+  .issue-card:last-child { margin-bottom: 0.75rem; }
+
+  .issue-collapsed {
+    padding: 0.85rem 1.15rem; display: flex; align-items: baseline;
+    gap: 0.5rem; cursor: pointer; user-select: none; flex-wrap: wrap;
+  }
+  .issue-collapsed:hover { background: var(--surface2); }
+
+  .issue-keyword {
+    font-weight: 650; font-size: 0.88rem; color: var(--text);
+    letter-spacing: -0.01em; flex-shrink: 0;
+  }
+  .issue-severity {
+    font-size: 0.78rem; color: var(--text-muted); font-weight: 400; flex-shrink: 0;
+  }
+  .issue-summary-text {
+    font-size: 0.78rem; color: var(--text-secondary);
+    min-width: 0; flex: 1;
+  }
+  .toggle-icon {
+    flex-shrink: 0; width: 20px; height: 20px; border-radius: 50%;
+    background: var(--surface3); display: flex; align-items: center;
+    justify-content: center; transition: transform 0.2s ease;
+    color: var(--text-muted); font-size: 0.7rem;
+  }
+  .issue-card.open .toggle-icon { transform: rotate(180deg); }
+
+  .issue-details {
+    display: none; border-top: 1px solid var(--border-light);
+    padding: 1.25rem; background: var(--surface2);
+  }
+  .issue-card.open .issue-details { display: block; }
+  .detail-section { margin-bottom: 1.25rem; }
+  .detail-section:last-child { margin-bottom: 0; }
+
+  .pages-table {
+    width: 100%; border-collapse: collapse; font-size: 0.8rem;
+    background: var(--surface); border-radius: var(--radius-sm);
+    overflow: hidden; border: 1px solid var(--border);
+  }
+  .pages-table th {
+    text-align: left; color: var(--text-muted); font-weight: 600;
+    padding: 0.55rem 0.75rem; font-size: 0.65rem;
+    text-transform: uppercase; letter-spacing: 0.05em;
+    background: var(--surface3); border-bottom: 1px solid var(--border);
+  }
+  .pages-table td {
+    padding: 0.55rem 0.75rem; border-top: 1px solid var(--border-light);
+    color: var(--text-secondary); vertical-align: top;
+  }
+  .pages-table tbody tr:first-child td { border-top: none; }
+  .pages-table tr.winner-row td { font-weight: 600; color: var(--text); }
+  .page-url { word-break: break-all; }
+  .page-url a { color: var(--accent); text-decoration: none; }
+  .page-url a:hover { text-decoration: underline; }
+  .winner-row .page-url a { color: var(--text); }
+  .page-type-cell { font-size: 0.72rem; color: var(--text-muted); white-space: nowrap; }
+  .inline-footprint {
+    font-size: 0.7rem; color: var(--text-muted); font-style: italic;
+    font-weight: 400; margin-top: 0.15rem; line-height: 1.4;
+    word-break: break-word; white-space: normal;
+  }
+
+  .content-block {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1rem 1.15rem;
+    font-size: 0.82rem;
+    color: var(--text-secondary);
+    line-height: 1.65;
+  }
+  .content-block + .content-block { margin-top: 0.75rem; }
+
+  .action-item {
+    padding: 0.6rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .action-item:last-child { border-bottom: none; padding-bottom: 0; }
+  .action-item:first-child { padding-top: 0; }
+  .action-url {
+    font-weight: 600; color: var(--text);
+    margin-bottom: 0.1rem; font-size: 0.78rem; word-break: break-all;
+  }
+  .action-url a { color: var(--accent); text-decoration: none; }
+  .action-url a:hover { text-decoration: underline; }
+  .action-url .action-ptype {
+    font-weight: 400; color: var(--text-muted); font-size: 0.7rem; margin-left: 0.3rem;
+  }
+  .action-label {
+    display: inline-block; color: var(--accent);
+    font-weight: 600; font-size: 0.6rem;
+    text-transform: uppercase; letter-spacing: 0.05em;
+    margin-bottom: 0.15rem;
+  }
+  .action-changes {
+    color: var(--text-secondary); font-size: 0.78rem; line-height: 1.55;
+  }
+
+  .footer {
+    text-align: center; color: var(--text-muted); font-size: 0.75rem;
+    margin-top: 3rem; padding-top: 1.25rem; border-top: 1px solid var(--border);
+  }
+  .no-issues { text-align: center; padding: 4rem 2rem; color: var(--text-muted); }
+  .no-issues h2 { color: var(--success); margin-bottom: 0.5rem; }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <div class="report-header">
+    <div class="report-header-left">
+      <h1>Keyword Cannibalization Audit</h1>
+      <p class="subtitle">https://ugoanums.com/ &middot; April 05, 2026</p>
+    </div>
+    <div class="report-author">
+      <div class="author-name">UGO Anums Consulting</div>
+      <div class="author-url">ugoanums.com</div>
+    </div>
+  </div>
+
+  <p class="exec-summary">I found 12 queries where multiple pages on https://ugoanums.com/ are competing against each other, with 1 at medium severity and the rest low. The top priority is "seo umough nigeria" (severity 51.6) which I recommend resolving with canonical tag additions. Across all issues, 9 of 12 are best resolved through content differentiation, with 283 total impressions currently split across competing pages.</p>
+
+  <div class="summary-grid">
+    <div class="stat-card">
+      <div class="label">Cannibalized Queries</div>
+      <div class="value accent">12</div>
+    </div>
+    <div class="stat-card">
+      <div class="label">Topic Groups</div>
+      <div class="value accent">4</div>
+    </div>
+    <div class="stat-card">
+      <div class="label">High Severity</div>
+      <div class="value danger">0</div>
+    </div>
+    <div class="stat-card">
+      <div class="label">Medium Severity</div>
+      <div class="value warning">1</div>
+    </div>
+    <div class="stat-card">
+      <div class="label">Low Severity</div>
+      <div class="value success">11</div>
+    </div>
+    <div class="stat-card">
+      <div class="label">Wasted Impressions</div>
+      <div class="value warning">283</div>
+    </div>
+  </div>
+
+  
+  
+  <div class="topic-group">
+    <div class="topic-header">
+      <div>
+        <span class="topic-title">SEO Services Nigeria</span>
+        <span class="topic-count">6 queries</span>
+      </div>
+      <div class="topic-meta">
+        <span>Avg severity 28.2</span>
+        <span>180 wasted impr</span>
+      </div>
+    </div>
+
+    
+    
+    
+    <div class="issue-card" onclick="this.classList.toggle('open')">
+
+      <div class="issue-collapsed">
+        <span class="issue-keyword">"seo umough nigeria"</span>
+        <span class="issue-severity">(51.6)</span>
+        <span class="issue-summary-text">The homepage already ranks #1 and contains the business value proposition that SERP visitors expect for this commercial query. The about pag...</span>
+        <span class="toggle-icon">&#9662;</span>
+      </div>
+
+      <div class="issue-details">
+
+        <div class="detail-section">
+          <table class="pages-table">
+            <thead>
+              <tr><th>Page</th><th>Type</th><th>Clicks</th><th>Impr</th><th>CTR</th><th>Pos</th></tr>
+            </thead>
+            <tbody>
+              <tr class="winner-row">
+                <td class="page-url">
+                  <a href="https://ugoanums.com/" target="_blank" onclick="event.stopPropagation()">https://ugoanums.com/</a>
+                  
+                  
+                  <div class="inline-footprint">47 queries &middot; 1,365 total impr &middot; also: "seo expert in nigeria", "seo expert in lagos", "seo consultant lagos"</div>
+                  
+                </td>
+                <td class="page-type-cell">Home Page</td>
+                <td>0</td>
+                <td>96</td>
+                <td>0.0%</td>
+                <td>1.7</td>
+              </tr>
+              
+              <tr>
+                <td class="page-url">
+                  <a href="https://ugoanums.com/about/" target="_blank" onclick="event.stopPropagation()">https://ugoanums.com/about/</a>
+                  
+                  
+                  <div class="inline-footprint">5 queries &middot; 18 total impr &middot; also: "seo expert in nigeria", "anums", "seo experts in nigeria"</div>
+                  
+                </td>
+                <td class="page-type-cell">Home Page</td>
+                <td>0</td>
+                <td>1</td>
+                <td>0.0%</td>
+                <td>4</td>
+              </tr>
+              
+            </tbody>
+          </table>
+        </div>
+
+        
+        <div class="detail-section">
+          <div class="content-block">The homepage already ranks #1 and contains the business value proposition that SERP visitors expect for this commercial query. The about page serves a secondary informational purpose but shouldn't compete for the same commercial query. Adding a canonical tag from about to homepage preserves the primary ranking while eliminating cannibalization without destroying any meaningful traffic.</div>
+        </div>
+        
+
+        
+        <div class="detail-section">
+          <div class="content-block">
+            
+            <div class="action-item">
+              <div class="action-url">
+                <a href="https://ugoanums.com/" target="_blank" onclick="event.stopPropagation()">https://ugoanums.com/</a>
+                <span class="action-ptype">(Home Page)</span>
+              </div>
+              <div class="action-label">maintain-primary-ranking</div>
+              <div class="action-changes">The current title 'UGO Anums Consulting - SEO & Growth Marketing Consultancy' effectively positions the business for commercial SEO queries in Nigeria and should remain unchanged since it already captures the target commercial intent and maintains the #1 ranking position.</div>
+            </div>
+            
+            <div class="action-item">
+              <div class="action-url">
+                <a href="https://ugoanums.com/about/" target="_blank" onclick="event.stopPropagation()">https://ugoanums.com/about/</a>
+                <span class="action-ptype">(About)</span>
+              </div>
+              <div class="action-label">add-canonical-tag</div>
+              <div class="action-changes">The current title 'About UGO Anums — SEO Consultant in Lagos, Nigeria' appropriately describes the page content but creates unnecessary competition with the homepage for commercial SEO queries, so adding a canonical tag pointing to the homepage will consolidate ranking signals while preserving the about page's informational purpose for users who specifically seek background information.</div>
+            </div>
+            
+          </div>
+        </div>
+        
+
+      </div>
+    </div>
+    
+    
+    
+    <div class="issue-card" onclick="this.classList.toggle('open')">
+
+      <div class="issue-collapsed">
+        <span class="issue-keyword">"seo services nigeria"</span>
+        <span class="issue-severity">(33.3)</span>
+        <span class="issue-summary-text">The SERP clearly rewards listicle/comparison formats for commercial queries like this, with Clutch rankings and comparison pages dominating ...</span>
+        <span class="toggle-icon">&#9662;</span>
+      </div>
+
+      <div class="issue-details">
+
+        <div class="detail-section">
+          <table class="pages-table">
+            <thead>
+              <tr><th>Page</th><th>Type</th><th>Clicks</th><th>Impr</th><th>CTR</th><th>Pos</th></tr>
+            </thead>
+            <tbody>
+              <tr class="winner-row">
+                <td class="page-url">
+                  <a href="https://ugoanums.com/" target="_blank" onclick="event.stopPropagation()">https://ugoanums.com/</a>
+                  
+                  
+                  <div class="inline-footprint">47 queries &middot; 1,365 total impr &middot; also: "seo expert in nigeria", "seo expert in lagos", "seo consultant lagos"</div>
+                  
+                </td>
+                <td class="page-type-cell">Home Page</td>
+                <td>0</td>
+                <td>7</td>
+                <td>0.0%</td>
+                <td>57.4</td>
+              </tr>
+              
+              <tr>
+                <td class="page-url">
+                  <a href="https://ugoanums.com/insights/best-seo-company-in-nigeria/" target="_blank" onclick="event.stopPropagation()">https://ugoanums.com/insights/best-seo-company-in-nigeria/</a>
+                  
+                  
+                  <div class="inline-footprint">61 queries &middot; 1,280 total impr &middot; also: "seo company in nigeria", "best seo company in nigeria", "seo companies in nigeria"</div>
+                  
+                </td>
+                <td class="page-type-cell">Blog Post</td>
+                <td>0</td>
+                <td>65</td>
+                <td>0.0%</td>
+                <td>68.5</td>
+              </tr>
+              
+            </tbody>
+          </table>
+        </div>
+
+        
+        <div class="detail-section">
+          <div class="content-block">The SERP clearly rewards listicle/comparison formats for commercial queries like this, with Clutch rankings and comparison pages dominating positions 1-10. The blog post already matches this format perfectly with its ranking approach, while the homepage serves a different commercial intent (direct service inquiry). Both pages rank for 47+ and 61+ other queries respectively with substantial impression volumes, so redirecting either would destroy significant existing rankings.</div>
+        </div>
+        
+
+        
+        <div class="detail-section">
+          <div class="content-block">
+            
+            <div class="action-item">
+              <div class="action-url">
+                <a href="https://ugoanums.com/" target="_blank" onclick="event.stopPropagation()">https://ugoanums.com/</a>
+                <span class="action-ptype">(Home Page)</span>
+              </div>
+              <div class="action-label">optimize-for-direct-service-intent</div>
+              <div class="action-changes">The current title 'UGO Anums Consulting - SEO & Growth Marketing Consultancy' and H1 'Your growth has a gap. I find it and fix it.' serve the homepage's direct service inquiry purpose well, but could better capture users specifically searching for SEO services in Nigeria by incorporating geographic targeting in the meta description to mention Lagos/Nigeria expertise, while keeping the title focused on the broader consultancy positioning to maintain rankings for the 47 other queries this page serves.</div>
+            </div>
+            
+            <div class="action-item">
+              <div class="action-url">
+                <a href="https://ugoanums.com/insights/best-seo-company-in-nigeria/" target="_blank" onclick="event.stopPropagation()">https://ugoanums.com/insights/best-seo-company-in-nigeria/</a>
+                <span class="action-ptype">(Blog Post)</span>
+              </div>
+              <div class="action-label">strengthen-comparison-content</div>
+              <div class="action-changes">The current title 'Best SEO Companies in Nigeria (2026) — 8 Firms Ranked' and H1 'The Best SEO Companies in Nigeria (2026): 8 Firms, One Honest Ranking' already perfectly match the SERP's preference for comparison/ranking content, but the page could strengthen its commercial intent by expanding the comparison criteria section and adding more detailed service breakdowns for each firm to better compete with Clutch-style comprehensive comparisons that dominate the top results.</div>
+            </div>
+            
+          </div>
+        </div>
+        
+
+      </div>
+    </div>
+    
+    
+    
+    <div class="issue-card" onclick="this.classList.toggle('open')">
+
+      <div class="issue-collapsed">
+        <span class="issue-keyword">"professional seo services nigeria"</span>
+        <span class="issue-severity">(26.5)</span>
+        <span class="issue-summary-text">The SERP clearly rewards listicles and comparison content for this commercial query, as shown by Clutch.co's #1 ranking with 'Top SEO Compan...</span>
+        <span class="toggle-icon">&#9662;</span>
+      </div>
+
+      <div class="issue-details">
+
+        <div class="detail-section">
+          <table class="pages-table">
+            <thead>
+              <tr><th>Page</th><th>Type</th><th>Clicks</th><th>Impr</th><th>CTR</th><th>Pos</th></tr>
+            </thead>
+            <tbody>
+              <tr class="winner-row">
+                <td class="page-url">
+                  <a href="https://ugoanums.com/" target="_blank" onclick="event.stopPropagation()">https://ugoanums.com/</a>
+                  
+                  
+                  <div class="inline-footprint">47 queries &middot; 1,365 total impr &middot; also: "seo expert in nigeria", "seo expert in lagos", "seo consultant lagos"</div>
+                  
+                </td>
+                <td class="page-type-cell">Home Page</td>
+                <td>0</td>
+                <td>1</td>
+                <td>0.0%</td>
+                <td>42</td>
+              </tr>
+              
+              <tr>
+                <td class="page-url">
+                  <a href="https://ugoanums.com/insights/best-seo-company-in-nigeria/" target="_blank" onclick="event.stopPropagation()">https://ugoanums.com/insights/best-seo-company-in-nigeria/</a>
+                  
+                  
+                  <div class="inline-footprint">61 queries &middot; 1,280 total impr &middot; also: "seo company in nigeria", "best seo company in nigeria", "seo companies in nigeria"</div>
+                  
+                </td>
+                <td class="page-type-cell">Blog Post</td>
+                <td>0</td>
+                <td>2</td>
+                <td>0.0%</td>
+                <td>46</td>
+              </tr>
+              
+            </tbody>
+          </table>
+        </div>
+
+        
+        <div class="detail-section">
+          <div class="content-block">The SERP clearly rewards listicles and comparison content for this commercial query, as shown by Clutch.co's #1 ranking with 'Top SEO Companies in Nigeria' format. The blog post already matches this intent with its current title 'Best SEO Companies in Nigeria (2026) — 8 Firms Ranked' while the homepage serves a different purpose. Both pages rank for 47-61 other queries with over 1,200 total impressions each — redirecting either would destroy substantial rankings.</div>
+        </div>
+        
+
+        
+        <div class="detail-section">
+          <div class="content-block">
+            
+            <div class="action-item">
+              <div class="action-url">
+                <a href="https://ugoanums.com/" target="_blank" onclick="event.stopPropagation()">https://ugoanums.com/</a>
+                <span class="action-ptype">(Home Page)</span>
+              </div>
+              <div class="action-label">optimize-for-personal-branding</div>
+              <div class="action-changes">The current title 'UGO Anums Consulting - SEO & Growth Marketing Consultancy' and H1 'Your growth has a gap. I find it and fix it.' position this as a personal consultancy rather than targeting the broader 'professional seo services nigeria' query, which is actually appropriate since this homepage ranks for 47 other queries and serves the personal brand positioning. Instead of changing the title, strengthen the internal link from this page to the blog post using anchor text like 'professional SEO services in Nigeria' to pass authority to the more relevant content piece.</div>
+            </div>
+            
+            <div class="action-item">
+              <div class="action-url">
+                <a href="https://ugoanums.com/insights/best-seo-company-in-nigeria/" target="_blank" onclick="event.stopPropagation()">https://ugoanums.com/insights/best-seo-company-in-nigeria/</a>
+                <span class="action-ptype">(Blog Post)</span>
+              </div>
+              <div class="action-label">minor-title-optimization</div>
+              <div class="action-changes">The current title 'Best SEO Companies in Nigeria (2026) — 8 Firms Ranked' already perfectly matches what Google is rewarding in the SERP (listicle format comparing SEO companies), so no major title change is needed since it captures the commercial intent. To better capture the specific 'professional seo services nigeria' variation, add a dedicated H2 section like 'What Makes These Professional SEO Services Stand Out in Nigeria' and ensure the introduction paragraph includes the exact phrase 'professional SEO services Nigeria' within the first 100 words to strengthen topical relevance.</div>
+            </div>
+            
+          </div>
+        </div>
+        
+
+      </div>
+    </div>
+    
+    
+    
+    <div class="issue-card" onclick="this.classList.toggle('open')">
+
+      <div class="issue-collapsed">
+        <span class="issue-keyword">"seo services in nigeria"</span>
+        <span class="issue-severity">(25.1)</span>
+        <span class="issue-summary-text">The SERP strongly rewards listicle comparison content (Clutch rankings, GoodFirms rankings) over service provider homepages for this commerc...</span>
+        <span class="toggle-icon">&#9662;</span>
+      </div>
+
+      <div class="issue-details">
+
+        <div class="detail-section">
+          <table class="pages-table">
+            <thead>
+              <tr><th>Page</th><th>Type</th><th>Clicks</th><th>Impr</th><th>CTR</th><th>Pos</th></tr>
+            </thead>
+            <tbody>
+              <tr class="winner-row">
+                <td class="page-url">
+                  <a href="https://ugoanums.com/" target="_blank" onclick="event.stopPropagation()">https://ugoanums.com/</a>
+                  
+                  
+                  <div class="inline-footprint">47 queries &middot; 1,365 total impr &middot; also: "seo expert in nigeria", "seo expert in lagos", "seo consultant lagos"</div>
+                  
+                </td>
+                <td class="page-type-cell">Home Page</td>
+                <td>0</td>
+                <td>7</td>
+                <td>0.0%</td>
+                <td>51</td>
+              </tr>
+              
+              <tr>
+                <td class="page-url">
+                  <a href="https://ugoanums.com/insights/best-seo-company-in-nigeria/" target="_blank" onclick="event.stopPropagation()">https://ugoanums.com/insights/best-seo-company-in-nigeria/</a>
+                  
+                  
+                  <div class="inline-footprint">61 queries &middot; 1,280 total impr &middot; also: "seo company in nigeria", "best seo company in nigeria", "seo companies in nigeria"</div>
+                  
+                </td>
+                <td class="page-type-cell">Blog Post</td>
+                <td>0</td>
+                <td>47</td>
+                <td>0.0%</td>
+                <td>65.9</td>
+              </tr>
+              
+            </tbody>
+          </table>
+        </div>
+
+        
+        <div class="detail-section">
+          <div class="content-block">The SERP strongly rewards listicle comparison content (Clutch rankings, GoodFirms rankings) over service provider homepages for this commercial query. The blog post ranks for 61 other queries with 1,280 total impressions — a redirect would destroy these rankings. The homepage should differentiate toward personal branding while the listicle captures comparison shoppers.</div>
+        </div>
+        
+
+        
+        <div class="detail-section">
+          <div class="content-block">
+            
+            <div class="action-item">
+              <div class="action-url">
+                <a href="https://ugoanums.com/" target="_blank" onclick="event.stopPropagation()">https://ugoanums.com/</a>
+                <span class="action-ptype">(Home Page)</span>
+              </div>
+              <div class="action-label">differentiate toward personal expert positioning</div>
+              <div class="action-changes">The current title 'UGO Anums Consulting - SEO & Growth Marketing Consultancy' and H1 'Your growth has a gap. I find it and fix it.' position you as a consultant but don't leverage Nigeria geo-targeting that could differentiate from the listicle page. Consider adjusting the title to 'UGO Anums - Nigeria's Growth Marketing & SEO Consultant' to capture personal expert searches while letting the listicle page own the company comparison searches, as this would align with what searchers expect when looking for individual expertise versus company comparisons.</div>
+            </div>
+            
+            <div class="action-item">
+              <div class="action-url">
+                <a href="https://ugoanums.com/insights/best-seo-company-in-nigeria/" target="_blank" onclick="event.stopPropagation()">https://ugoanums.com/insights/best-seo-company-in-nigeria/</a>
+                <span class="action-ptype">(Blog Post)</span>
+              </div>
+              <div class="action-label">maintain as the winner for this query</div>
+              <div class="action-changes">The current title 'Best SEO Companies in Nigeria (2026) — 8 Firms Ranked' and H1 'The Best SEO Companies in Nigeria (2026): 8 Firms, One Honest Ranking' perfectly match the commercial intent and listicle format that dominates the SERP, where comparison content from Clutch and GoodFirms ranks #1 and #7. This page should continue targeting the comparison-shopping segment while internal linking could be strengthened to drive qualified leads from comparison shoppers to your consultation booking page.</div>
+            </div>
+            
+          </div>
+        </div>
+        
+
+      </div>
+    </div>
+    
+    
+    
+    <div class="issue-card" onclick="this.classList.toggle('open')">
+
+      <div class="issue-collapsed">
+        <span class="issue-keyword">"seo nigeria"</span>
+        <span class="issue-severity">(22.5)</span>
+        <span class="issue-summary-text">The SERP rewards listicles comparing SEO companies, not service provider homepages. The blog post with title 'Best SEO Companies in Nigeria ...</span>
+        <span class="toggle-icon">&#9662;</span>
+      </div>
+
+      <div class="issue-details">
+
+        <div class="detail-section">
+          <table class="pages-table">
+            <thead>
+              <tr><th>Page</th><th>Type</th><th>Clicks</th><th>Impr</th><th>CTR</th><th>Pos</th></tr>
+            </thead>
+            <tbody>
+              <tr class="winner-row">
+                <td class="page-url">
+                  <a href="https://ugoanums.com/" target="_blank" onclick="event.stopPropagation()">https://ugoanums.com/</a>
+                  
+                  
+                  <div class="inline-footprint">47 queries &middot; 1,365 total impr &middot; also: "seo expert in nigeria", "seo expert in lagos", "seo consultant lagos"</div>
+                  
+                </td>
+                <td class="page-type-cell">Home Page</td>
+                <td>0</td>
+                <td>21</td>
+                <td>0.0%</td>
+                <td>23.5</td>
+              </tr>
+              
+              <tr>
+                <td class="page-url">
+                  <a href="https://ugoanums.com/insights/best-seo-company-in-nigeria/" target="_blank" onclick="event.stopPropagation()">https://ugoanums.com/insights/best-seo-company-in-nigeria/</a>
+                  
+                  
+                  <div class="inline-footprint">61 queries &middot; 1,280 total impr &middot; also: "seo company in nigeria", "best seo company in nigeria", "seo companies in nigeria"</div>
+                  
+                </td>
+                <td class="page-type-cell">Blog Post</td>
+                <td>0</td>
+                <td>56</td>
+                <td>0.0%</td>
+                <td>52.7</td>
+              </tr>
+              
+            </tbody>
+          </table>
+        </div>
+
+        
+        <div class="detail-section">
+          <div class="content-block">The SERP rewards listicles comparing SEO companies, not service provider homepages. The blog post with title 'Best SEO Companies in Nigeria (2026) — 8 Firms Ranked' matches SERP intent perfectly, while the homepage serves broader brand positioning. The homepage ranks for 47 other queries with 1,365 total impressions — differentiation preserves these rankings while letting each page serve its intended purpose.</div>
+        </div>
+        
+
+        
+        <div class="detail-section">
+          <div class="content-block">
+            
+            <div class="action-item">
+              <div class="action-url">
+                <a href="https://ugoanums.com/" target="_blank" onclick="event.stopPropagation()">https://ugoanums.com/</a>
+                <span class="action-ptype">(Home Page)</span>
+              </div>
+              <div class="action-label">optimize for personal branding queries</div>
+              <div class="action-changes">The current title 'UGO Anums Consulting - SEO & Growth Marketing Consultancy' and H1 'Your growth has a gap. I find it and fix it.' effectively position this as a personal consultancy brand rather than competing on generic 'SEO Nigeria' searches, which is exactly right since this homepage ranks well for branded queries like 'seo expert in nigeria' and 'seo consultant lagos' — maintain this positioning and strengthen internal linking to the company comparison page for users seeking vendor research.</div>
+            </div>
+            
+            <div class="action-item">
+              <div class="action-url">
+                <a href="https://ugoanums.com/insights/best-seo-company-in-nigeria/" target="_blank" onclick="event.stopPropagation()">https://ugoanums.com/insights/best-seo-company-in-nigeria/</a>
+                <span class="action-ptype">(Blog Post)</span>
+              </div>
+              <div class="action-label">strengthen competitive comparison focus</div>
+              <div class="action-changes">The current title 'Best SEO Companies in Nigeria (2026) — 8 Firms Ranked' and H1 'The Best SEO Companies in Nigeria (2026): 8 Firms, One Honest Ranking' perfectly match what the SERP rewards (company comparison listicles) but could benefit from adding 'SEO Nigeria' variations in the H2 subheadings and expanding comparison criteria to include more Nigerian market-specific evaluation factors like local case studies and naira-based pricing transparency.</div>
+            </div>
+            
+          </div>
+        </div>
+        
+
+      </div>
+    </div>
+    
+    
+    
+    <div class="issue-card" onclick="this.classList.toggle('open')">
+
+      <div class="issue-collapsed">
+        <span class="issue-keyword">"seo in nigeria"</span>
+        <span class="issue-severity">(10.0)</span>
+        <span class="issue-summary-text">The SERP rewards listicles and comparison content for 'seo in nigeria' queries, with 9 of 10 results being agency listings or comparison pag...</span>
+        <span class="toggle-icon">&#9662;</span>
+      </div>
+
+      <div class="issue-details">
+
+        <div class="detail-section">
+          <table class="pages-table">
+            <thead>
+              <tr><th>Page</th><th>Type</th><th>Clicks</th><th>Impr</th><th>CTR</th><th>Pos</th></tr>
+            </thead>
+            <tbody>
+              <tr class="winner-row">
+                <td class="page-url">
+                  <a href="https://ugoanums.com/" target="_blank" onclick="event.stopPropagation()">https://ugoanums.com/</a>
+                  
+                  
+                  <div class="inline-footprint">47 queries &middot; 1,365 total impr &middot; also: "seo expert in nigeria", "seo expert in lagos", "seo consultant lagos"</div>
+                  
+                </td>
+                <td class="page-type-cell">Home Page</td>
+                <td>0</td>
+                <td>6</td>
+                <td>0.0%</td>
+                <td>29.3</td>
+              </tr>
+              
+              <tr>
+                <td class="page-url">
+                  <a href="https://ugoanums.com/about/" target="_blank" onclick="event.stopPropagation()">https://ugoanums.com/about/</a>
+                  
+                  
+                  <div class="inline-footprint">5 queries &middot; 18 total impr &middot; also: "seo expert in nigeria", "anums", "seo experts in nigeria"</div>
+                  
+                </td>
+                <td class="page-type-cell">Home Page</td>
+                <td>0</td>
+                <td>2</td>
+                <td>0.0%</td>
+                <td>11</td>
+              </tr>
+              
+              <tr>
+                <td class="page-url">
+                  <a href="https://ugoanums.com/blog/" target="_blank" onclick="event.stopPropagation()">https://ugoanums.com/blog/</a>
+                  
+                  
+                  <div class="inline-footprint">3 queries &middot; 15 total impr &middot; also: "seo expert in nigeria", "seo experts in nigeria"</div>
+                  
+                </td>
+                <td class="page-type-cell">Blog Post</td>
+                <td>0</td>
+                <td>2</td>
+                <td>0.0%</td>
+                <td>11</td>
+              </tr>
+              
+              <tr>
+                <td class="page-url">
+                  <a href="https://ugoanums.com/contact/" target="_blank" onclick="event.stopPropagation()">https://ugoanums.com/contact/</a>
+                  
+                  
+                  <div class="inline-footprint">3 queries &middot; 15 total impr &middot; also: "seo expert in nigeria", "seo experts in nigeria"</div>
+                  
+                </td>
+                <td class="page-type-cell">Home Page</td>
+                <td>0</td>
+                <td>2</td>
+                <td>0.0%</td>
+                <td>11</td>
+              </tr>
+              
+              <tr>
+                <td class="page-url">
+                  <a href="https://ugoanums.com/insights/best-seo-company-in-nigeria/" target="_blank" onclick="event.stopPropagation()">https://ugoanums.com/insights/best-seo-company-in-nigeria/</a>
+                  
+                  
+                  <div class="inline-footprint">61 queries &middot; 1,280 total impr &middot; also: "seo company in nigeria", "best seo company in nigeria", "seo companies in nigeria"</div>
+                  
+                </td>
+                <td class="page-type-cell">Blog Post</td>
+                <td>0</td>
+                <td>3</td>
+                <td>0.0%</td>
+                <td>41.7</td>
+              </tr>
+              
+            </tbody>
+          </table>
+        </div>
+
+        
+        <div class="detail-section">
+          <div class="content-block">The SERP rewards listicles and comparison content for 'seo in nigeria' queries, with 9 of 10 results being agency listings or comparison pages. The listicle page matches this intent perfectly but ranks poorly at position 41.7. The homepage ranks for 47 other queries with 1,365 total impressions, and the listicle ranks for 61 other queries with 1,280 total impressions — redirects would destroy these rankings. Both pages need content differentiation to serve distinct user intents.</div>
+        </div>
+        
+
+        
+        <div class="detail-section">
+          <div class="content-block">
+            
+            <div class="action-item">
+              <div class="action-url">
+                <a href="https://ugoanums.com/" target="_blank" onclick="event.stopPropagation()">https://ugoanums.com/</a>
+                <span class="action-ptype">(Home Page)</span>
+              </div>
+              <div class="action-label">differentiate-by-intent</div>
+              <div class="action-changes">The current title 'UGO Anums Consulting - SEO & Growth Marketing Consultancy' and H1 'Your growth has a gap. I find it and fix it.' focus on personal consulting services rather than the broader SEO landscape in Nigeria that searchers want to explore. Update the title to 'Nigeria SEO Expert | Growth Marketing Consultant - UGO Anums' and revise the H1 to 'Leading SEO Expert Serving Nigerian Businesses' to better target users seeking individual expertise rather than company comparisons, while maintaining the personal brand positioning that differentiates from the listicle page.</div>
+            </div>
+            
+            <div class="action-item">
+              <div class="action-url">
+                <a href="https://ugoanums.com/insights/best-seo-company-in-nigeria/" target="_blank" onclick="event.stopPropagation()">https://ugoanums.com/insights/best-seo-company-in-nigeria/</a>
+                <span class="action-ptype">(Blog Post)</span>
+              </div>
+              <div class="action-label">optimize-for-target-query</div>
+              <div class="action-changes">The current title 'Best SEO Companies in Nigeria (2026) — 8 Firms Ranked' and H1 'The Best SEO Companies in Nigeria (2026): 8 Firms, One Honest Ranking' are perfectly aligned with SERP intent but need broader keyword coverage. Expand the title to 'SEO in Nigeria: Best Companies & Services (2026) — 8 Firms Ranked' and add an introduction section targeting 'seo in nigeria' specifically, covering the overall SEO landscape, market trends, and service availability across Nigeria before diving into the company rankings, which will capture both broad 'seo in nigeria' searches and specific 'best seo companies' queries.</div>
+            </div>
+            
+          </div>
+        </div>
+        
+
+      </div>
+    </div>
+    
+  </div>
+  
+  <div class="topic-group">
+    <div class="topic-header">
+      <div>
+        <span class="topic-title">SEO Experts Nigeria</span>
+        <span class="topic-count">4 queries</span>
+      </div>
+      <div class="topic-meta">
+        <span>Avg severity 19.9</span>
+        <span>90 wasted impr</span>
+      </div>
+    </div>
+
+    
+    
+    
+    <div class="issue-card" onclick="this.classList.toggle('open')">
+
+      <div class="issue-collapsed">
+        <span class="issue-keyword">"seo expert in nigeria"</span>
+        <span class="issue-severity">(30.0)</span>
+        <span class="issue-summary-text">The SERP rewards individual SEO expert pages and listicles, not generic homepages. The about page with title 'About UGO Anums — SEO Consulta...</span>
+        <span class="toggle-icon">&#9662;</span>
+      </div>
+
+      <div class="issue-details">
+
+        <div class="detail-section">
+          <table class="pages-table">
+            <thead>
+              <tr><th>Page</th><th>Type</th><th>Clicks</th><th>Impr</th><th>CTR</th><th>Pos</th></tr>
+            </thead>
+            <tbody>
+              <tr class="winner-row">
+                <td class="page-url">
+                  <a href="https://ugoanums.com/" target="_blank" onclick="event.stopPropagation()">https://ugoanums.com/</a>
+                  
+                  
+                  <div class="inline-footprint">47 queries &middot; 1,365 total impr &middot; also: "seo expert in lagos", "seo consultant lagos", "seo umough nigeria"</div>
+                  
+                </td>
+                <td class="page-type-cell">Home Page</td>
+                <td>2</td>
+                <td>500</td>
+                <td>0.4%</td>
+                <td>11.5</td>
+              </tr>
+              
+              <tr>
+                <td class="page-url">
+                  <a href="https://ugoanums.com/about/" target="_blank" onclick="event.stopPropagation()">https://ugoanums.com/about/</a>
+                  
+                  
+                  <div class="inline-footprint">5 queries &middot; 18 total impr &middot; also: "anums", "seo experts in nigeria", "seo in nigeria"</div>
+                  
+                </td>
+                <td class="page-type-cell">Home Page</td>
+                <td>0</td>
+                <td>11</td>
+                <td>0.0%</td>
+                <td>10.7</td>
+              </tr>
+              
+              <tr>
+                <td class="page-url">
+                  <a href="https://ugoanums.com/blog/" target="_blank" onclick="event.stopPropagation()">https://ugoanums.com/blog/</a>
+                  
+                  
+                  <div class="inline-footprint">3 queries &middot; 15 total impr &middot; also: "seo experts in nigeria", "seo in nigeria"</div>
+                  
+                </td>
+                <td class="page-type-cell">Blog Post</td>
+                <td>0</td>
+                <td>11</td>
+                <td>0.0%</td>
+                <td>10.7</td>
+              </tr>
+              
+              <tr>
+                <td class="page-url">
+                  <a href="https://ugoanums.com/contact/" target="_blank" onclick="event.stopPropagation()">https://ugoanums.com/contact/</a>
+                  
+                  
+                  <div class="inline-footprint">3 queries &middot; 15 total impr &middot; also: "seo experts in nigeria", "seo in nigeria"</div>
+                  
+                </td>
+                <td class="page-type-cell">Home Page</td>
+                <td>0</td>
+                <td>11</td>
+                <td>0.0%</td>
+                <td>10.7</td>
+              </tr>
+              
+              <tr>
+                <td class="page-url">
+                  <a href="https://ugoanums.com/insights/best-seo-company-in-nigeria/" target="_blank" onclick="event.stopPropagation()">https://ugoanums.com/insights/best-seo-company-in-nigeria/</a>
+                  
+                  
+                  <div class="inline-footprint">61 queries &middot; 1,280 total impr &middot; also: "seo company in nigeria", "best seo company in nigeria", "seo companies in nigeria"</div>
+                  
+                </td>
+                <td class="page-type-cell">Blog Post</td>
+                <td>0</td>
+                <td>30</td>
+                <td>0.0%</td>
+                <td>55.7</td>
+              </tr>
+              
+            </tbody>
+          </table>
+        </div>
+
+        
+        <div class="detail-section">
+          <div class="content-block">The SERP rewards individual SEO expert pages and listicles, not generic homepages. The about page with title 'About UGO Anums — SEO Consultant in Lagos, Nigeria' is already positioned as the personal expert page but needs stronger targeting. The homepage ranks for 47 other queries with 1,365 total impressions — a redirect would destroy these rankings. The content page ranks for 61 other queries — also cannot be redirected safely.</div>
+        </div>
+        
+
+        
+        <div class="detail-section">
+          <div class="content-block">
+            
+            <div class="action-item">
+              <div class="action-url">
+                <a href="https://ugoanums.com/about/" target="_blank" onclick="event.stopPropagation()">https://ugoanums.com/about/</a>
+                <span class="action-ptype">(Home Page)</span>
+              </div>
+              <div class="action-label">optimize-for-target-query</div>
+              <div class="action-changes">The current title 'About UGO Anums — SEO Consultant in Lagos, Nigeria' is geographically limited to Lagos when the query targets all of Nigeria, and the H1 'I got into SEO by accident' doesn't establish expertise authority that the SERP demands. Update the title to 'UGO Anums — SEO Expert in Nigeria | 9 Years, 40+ Clients' and change the H1 to 'Nigeria's SEO Expert with 9 Years of Proven Results' to match the individual expert format that dominates the SERP while expanding geographic scope from Lagos to Nigeria.</div>
+            </div>
+            
+            <div class="action-item">
+              <div class="action-url">
+                <a href="https://ugoanums.com/" target="_blank" onclick="event.stopPropagation()">https://ugoanums.com/</a>
+                <span class="action-ptype">(Home Page)</span>
+              </div>
+              <div class="action-label">differentiate-content</div>
+              <div class="action-changes">The current title 'UGO Anums Consulting - SEO & Growth Marketing Consultancy' and H1 'Your growth has a gap. I find it and fix it' position this as a broader growth consultancy rather than specifically targeting SEO expertise queries. Since this page ranks for 47 other queries with 1,365 total impressions, maintain the current broader positioning to protect these rankings while adding internal links to the about page for SEO-specific queries.</div>
+            </div>
+            
+            <div class="action-item">
+              <div class="action-url">
+                <a href="https://ugoanums.com/insights/best-seo-company-in-nigeria/" target="_blank" onclick="event.stopPropagation()">https://ugoanums.com/insights/best-seo-company-in-nigeria/</a>
+                <span class="action-ptype">(Blog Post)</span>
+              </div>
+              <div class="action-label">differentiate-content</div>
+              <div class="action-changes">The current title 'Best SEO Companies in Nigeria (2026) — 8 Firms Ranked' targets company/agency searches while the cannibalized query seeks individual experts, and this page ranks for 61 other queries with 1,280 total impressions so cannot be redirected. Keep the current company-focused positioning to serve agency comparison queries while adding internal links to the about page when mentioning individual SEO expertise to create clear topical separation.</div>
+            </div>
+            
+            <div class="action-item">
+              <div class="action-url">
+                <a href="https://ugoanums.com/blog/" target="_blank" onclick="event.stopPropagation()">https://ugoanums.com/blog/</a>
+                <span class="action-ptype">(Blog Post)</span>
+              </div>
+              <div class="action-label">fix-technical-issue</div>
+              <div class="action-changes">The current title 'Page not found | UGO Anums Consulting' indicates this is a broken page that shouldn't be ranking for any queries. Fix the 404 error or implement a 301 redirect to the homepage to remove this page from search results entirely, as it provides no value to users searching for SEO expertise.</div>
+            </div>
+            
+            <div class="action-item">
+              <div class="action-url">
+                <a href="https://ugoanums.com/contact/" target="_blank" onclick="event.stopPropagation()">https://ugoanums.com/contact/</a>
+                <span class="action-ptype">(Home Page)</span>
+              </div>
+              <div class="action-label">differentiate-content</div>
+              <div class="action-changes">The current title 'Contact UGO Anums' and H1 'Let's find your growth gap' are appropriate for a contact page and don't need modification since this page only ranks for 3 queries with 15 total impressions. Maintain the current contact-focused positioning while ensuring internal links point to the about page for users seeking SEO expert information rather than just contact details.</div>
+            </div>
+            
+          </div>
+        </div>
+        
+
+      </div>
+    </div>
+    
+    
+    
+    <div class="issue-card" onclick="this.classList.toggle('open')">
+
+      <div class="issue-collapsed">
+        <span class="issue-keyword">"best seo expert in nigeria"</span>
+        <span class="issue-severity">(22.2)</span>
+        <span class="issue-summary-text">The SERP clearly rewards listicles and comparison content for this informational query, with results like 'Top 5 SEO Experts' and 'Top SEO C...</span>
+        <span class="toggle-icon">&#9662;</span>
+      </div>
+
+      <div class="issue-details">
+
+        <div class="detail-section">
+          <table class="pages-table">
+            <thead>
+              <tr><th>Page</th><th>Type</th><th>Clicks</th><th>Impr</th><th>CTR</th><th>Pos</th></tr>
+            </thead>
+            <tbody>
+              <tr class="winner-row">
+                <td class="page-url">
+                  <a href="https://ugoanums.com/" target="_blank" onclick="event.stopPropagation()">https://ugoanums.com/</a>
+                  
+                  
+                  <div class="inline-footprint">47 queries &middot; 1,365 total impr &middot; also: "seo expert in nigeria", "seo expert in lagos", "seo consultant lagos"</div>
+                  
+                </td>
+                <td class="page-type-cell">Home Page</td>
+                <td>0</td>
+                <td>4</td>
+                <td>0.0%</td>
+                <td>45.8</td>
+              </tr>
+              
+              <tr>
+                <td class="page-url">
+                  <a href="https://ugoanums.com/insights/best-seo-company-in-nigeria/" target="_blank" onclick="event.stopPropagation()">https://ugoanums.com/insights/best-seo-company-in-nigeria/</a>
+                  
+                  
+                  <div class="inline-footprint">61 queries &middot; 1,280 total impr &middot; also: "seo company in nigeria", "best seo company in nigeria", "seo companies in nigeria"</div>
+                  
+                </td>
+                <td class="page-type-cell">Blog Post</td>
+                <td>0</td>
+                <td>5</td>
+                <td>0.0%</td>
+                <td>35.6</td>
+              </tr>
+              
+            </tbody>
+          </table>
+        </div>
+
+        
+        <div class="detail-section">
+          <div class="content-block">The SERP clearly rewards listicles and comparison content for this informational query, with results like 'Top 5 SEO Experts' and 'Top SEO Companies' ranking high. The blog post already matches this format perfectly with its ranking structure. Both pages rank for 47+ other queries with 1,200+ total impressions each — redirecting either would destroy significant ranking value across dozens of keywords.</div>
+        </div>
+        
+
+        
+        <div class="detail-section">
+          <div class="content-block">
+            
+            <div class="action-item">
+              <div class="action-url">
+                <a href="https://ugoanums.com/" target="_blank" onclick="event.stopPropagation()">https://ugoanums.com/</a>
+                <span class="action-ptype">(Home Page)</span>
+              </div>
+              <div class="action-label">differentiate-for-personal-branding</div>
+              <div class="action-changes">Your current title 'UGO Anums Consulting - SEO & Growth Marketing Consultancy' positions you as a consultancy rather than highlighting your personal expertise as an individual SEO expert, which is what users searching 'best seo expert in nigeria' are seeking. Update the title to 'Ugo Anums - Nigeria's Leading SEO Expert & Growth Marketing Consultant' to better capture the personal branding aspect that searchers want when looking for the 'best expert' rather than the 'best company', while your H1 'Your growth has a gap. I find it and fix it' already effectively communicates your unique value proposition.</div>
+            </div>
+            
+            <div class="action-item">
+              <div class="action-url">
+                <a href="https://ugoanums.com/insights/best-seo-company-in-nigeria/" target="_blank" onclick="event.stopPropagation()">https://ugoanums.com/insights/best-seo-company-in-nigeria/</a>
+                <span class="action-ptype">(Blog Post)</span>
+              </div>
+              <div class="action-label">maintain-as-primary-target</div>
+              <div class="action-changes">Your current title 'Best SEO Companies in Nigeria (2026) — 8 Firms Ranked' and H1 'The Best SEO Companies in Nigeria (2026): 8 Firms, One Honest Ranking' perfectly match what Google is rewarding in the SERP for comparison queries, and since you include yourself as #1 in the ranking, this content naturally captures searches for both 'best seo company' and 'best seo expert' variants. The listicle format with detailed firm analysis aligns exactly with top-ranking results like 'Top 5 SEO Experts In Nigeria' and should continue targeting this query cluster.</div>
+            </div>
+            
+          </div>
+        </div>
+        
+
+      </div>
+    </div>
+    
+    
+    
+    <div class="issue-card" onclick="this.classList.toggle('open')">
+
+      <div class="issue-collapsed">
+        <span class="issue-keyword">"seo experts in nigeria"</span>
+        <span class="issue-severity">(15.0)</span>
+        <span class="issue-summary-text">The SERP rewards listicles and company directories for this commercial query, but the homepage ranks for 47 other queries with 1,365 total i...</span>
+        <span class="toggle-icon">&#9662;</span>
+      </div>
+
+      <div class="issue-details">
+
+        <div class="detail-section">
+          <table class="pages-table">
+            <thead>
+              <tr><th>Page</th><th>Type</th><th>Clicks</th><th>Impr</th><th>CTR</th><th>Pos</th></tr>
+            </thead>
+            <tbody>
+              <tr class="winner-row">
+                <td class="page-url">
+                  <a href="https://ugoanums.com/" target="_blank" onclick="event.stopPropagation()">https://ugoanums.com/</a>
+                  
+                  
+                  <div class="inline-footprint">47 queries &middot; 1,365 total impr &middot; also: "seo expert in nigeria", "seo expert in lagos", "seo consultant lagos"</div>
+                  
+                </td>
+                <td class="page-type-cell">Home Page</td>
+                <td>0</td>
+                <td>28</td>
+                <td>0.0%</td>
+                <td>10.9</td>
+              </tr>
+              
+              <tr>
+                <td class="page-url">
+                  <a href="https://ugoanums.com/about" target="_blank" onclick="event.stopPropagation()">https://ugoanums.com/about</a>
+                  
+                  
+                  <div class="inline-footprint">1 queries &middot; 1 total impr</div>
+                  
+                </td>
+                <td class="page-type-cell">Home Page</td>
+                <td>0</td>
+                <td>1</td>
+                <td>0.0%</td>
+                <td>12</td>
+              </tr>
+              
+              <tr>
+                <td class="page-url">
+                  <a href="https://ugoanums.com/about/" target="_blank" onclick="event.stopPropagation()">https://ugoanums.com/about/</a>
+                  
+                  
+                  <div class="inline-footprint">5 queries &middot; 18 total impr &middot; also: "seo expert in nigeria", "anums", "seo in nigeria"</div>
+                  
+                </td>
+                <td class="page-type-cell">Home Page</td>
+                <td>0</td>
+                <td>2</td>
+                <td>0.0%</td>
+                <td>9.5</td>
+              </tr>
+              
+              <tr>
+                <td class="page-url">
+                  <a href="https://ugoanums.com/blog/" target="_blank" onclick="event.stopPropagation()">https://ugoanums.com/blog/</a>
+                  
+                  
+                  <div class="inline-footprint">3 queries &middot; 15 total impr &middot; also: "seo expert in nigeria", "seo in nigeria"</div>
+                  
+                </td>
+                <td class="page-type-cell">Blog Post</td>
+                <td>0</td>
+                <td>2</td>
+                <td>0.0%</td>
+                <td>9.5</td>
+              </tr>
+              
+              <tr>
+                <td class="page-url">
+                  <a href="https://ugoanums.com/contact/" target="_blank" onclick="event.stopPropagation()">https://ugoanums.com/contact/</a>
+                  
+                  
+                  <div class="inline-footprint">3 queries &middot; 15 total impr &middot; also: "seo expert in nigeria", "seo in nigeria"</div>
+                  
+                </td>
+                <td class="page-type-cell">Home Page</td>
+                <td>0</td>
+                <td>2</td>
+                <td>0.0%</td>
+                <td>9.5</td>
+              </tr>
+              
+              <tr>
+                <td class="page-url">
+                  <a href="https://ugoanums.com/insights/best-seo-company-in-nigeria/" target="_blank" onclick="event.stopPropagation()">https://ugoanums.com/insights/best-seo-company-in-nigeria/</a>
+                  
+                  
+                  <div class="inline-footprint">61 queries &middot; 1,280 total impr &middot; also: "seo company in nigeria", "best seo company in nigeria", "seo companies in nigeria"</div>
+                  
+                </td>
+                <td class="page-type-cell">Blog Post</td>
+                <td>0</td>
+                <td>5</td>
+                <td>0.0%</td>
+                <td>54.6</td>
+              </tr>
+              
+              <tr>
+                <td class="page-url">
+                  <a href="https://ugoanums.com/service/" target="_blank" onclick="event.stopPropagation()">https://ugoanums.com/service/</a>
+                  
+                  
+                  <div class="inline-footprint">1 queries &middot; 1 total impr</div>
+                  
+                </td>
+                <td class="page-type-cell">Home Page</td>
+                <td>0</td>
+                <td>1</td>
+                <td>0.0%</td>
+                <td>12</td>
+              </tr>
+              
+              <tr>
+                <td class="page-url">
+                  <a href="https://ugoanums.com/service/content-strategy/" target="_blank" onclick="event.stopPropagation()">https://ugoanums.com/service/content-strategy/</a>
+                  
+                  
+                  <div class="inline-footprint">1 queries &middot; 1 total impr</div>
+                  
+                </td>
+                <td class="page-type-cell">Blog Post</td>
+                <td>0</td>
+                <td>1</td>
+                <td>0.0%</td>
+                <td>12</td>
+              </tr>
+              
+              <tr>
+                <td class="page-url">
+                  <a href="https://ugoanums.com/service/conversion-rate-optimisation/" target="_blank" onclick="event.stopPropagation()">https://ugoanums.com/service/conversion-rate-optimisation/</a>
+                  
+                  
+                  <div class="inline-footprint">1 queries &middot; 1 total impr</div>
+                  
+                </td>
+                <td class="page-type-cell">Blog Post</td>
+                <td>0</td>
+                <td>1</td>
+                <td>0.0%</td>
+                <td>12</td>
+              </tr>
+              
+              <tr>
+                <td class="page-url">
+                  <a href="https://ugoanums.com/service/email-marketing/" target="_blank" onclick="event.stopPropagation()">https://ugoanums.com/service/email-marketing/</a>
+                  
+                  
+                  <div class="inline-footprint">1 queries &middot; 1 total impr</div>
+                  
+                </td>
+                <td class="page-type-cell">Blog Post</td>
+                <td>0</td>
+                <td>1</td>
+                <td>0.0%</td>
+                <td>12</td>
+              </tr>
+              
+              <tr>
+                <td class="page-url">
+                  <a href="https://ugoanums.com/service/paid-media/" target="_blank" onclick="event.stopPropagation()">https://ugoanums.com/service/paid-media/</a>
+                  
+                  
+                  <div class="inline-footprint">2 queries &middot; 2 total impr &middot; also: ""retargeting" ads or advertising"</div>
+                  
+                </td>
+                <td class="page-type-cell">Blog Post</td>
+                <td>0</td>
+                <td>1</td>
+                <td>0.0%</td>
+                <td>12</td>
+              </tr>
+              
+              <tr>
+                <td class="page-url">
+                  <a href="https://ugoanums.com/service/seo-consulting/" target="_blank" onclick="event.stopPropagation()">https://ugoanums.com/service/seo-consulting/</a>
+                  
+                  
+                  <div class="inline-footprint">1 queries &middot; 1 total impr</div>
+                  
+                </td>
+                <td class="page-type-cell">Blog Post</td>
+                <td>0</td>
+                <td>1</td>
+                <td>0.0%</td>
+                <td>12</td>
+              </tr>
+              
+            </tbody>
+          </table>
+        </div>
+
+        
+        <div class="detail-section">
+          <div class="content-block">The SERP rewards listicles and company directories for this commercial query, but the homepage ranks for 47 other queries with 1,365 total impressions — a redirect would destroy these rankings. The blog post about best SEO companies in Nigeria also ranks for 61 queries with 1,280 impressions, making it too valuable to redirect. Since all competing pages have zero clicks and positions below 40, the focus should be on differentiating intent rather than consolidating pages.</div>
+        </div>
+        
+
+        
+        <div class="detail-section">
+          <div class="content-block">
+            
+            <div class="action-item">
+              <div class="action-url">
+                <a href="https://ugoanums.com/" target="_blank" onclick="event.stopPropagation()">https://ugoanums.com/</a>
+                <span class="action-ptype">(Home Page)</span>
+              </div>
+              <div class="action-label">optimize-title-tag</div>
+              <div class="action-changes">The current title 'UGO Anums Consulting - SEO & Growth Marketing Consultancy' positions this as a general consultancy rather than highlighting expertise in Nigeria specifically, which is what searchers want to find when looking for 'seo experts in nigeria' — updating the title to 'UGO Anums - SEO Expert & Growth Marketing Consultant in Lagos, Nigeria' would better align with the commercial intent while maintaining the professional positioning that works for the 47 other queries this page ranks for.</div>
+            </div>
+            
+            <div class="action-item">
+              <div class="action-url">
+                <a href="https://ugoanums.com/about" target="_blank" onclick="event.stopPropagation()">https://ugoanums.com/about</a>
+                <span class="action-ptype">(Home Page)</span>
+              </div>
+              <div class="action-label">301-redirect</div>
+              <div class="action-changes">The current title 'About UGO Anums — SEO Consultant in Lagos, Nigeria' is identical to the /about/ version and this page only ranks for the cannibalized query with 1 impression — redirecting this duplicate URL to https://ugoanums.com/about/ will consolidate the minimal ranking signals without harming any other keyword performance.</div>
+            </div>
+            
+            <div class="action-item">
+              <div class="action-url">
+                <a href="https://ugoanums.com/about/" target="_blank" onclick="event.stopPropagation()">https://ugoanums.com/about/</a>
+                <span class="action-ptype">(Home Page)</span>
+              </div>
+              <div class="action-label">maintain-differentiation</div>
+              <div class="action-changes">The current title 'About UGO Anums — SEO Consultant in Lagos, Nigeria' already properly targets Nigerian SEO searches and serves a different user intent (learning about the consultant personally) than the homepage's service-focused approach, so this page should maintain its current positioning to capture users who want to research the individual expert behind the consultancy.</div>
+            </div>
+            
+            <div class="action-item">
+              <div class="action-url">
+                <a href="https://ugoanums.com/blog/" target="_blank" onclick="event.stopPropagation()">https://ugoanums.com/blog/</a>
+                <span class="action-ptype">(Blog Post)</span>
+              </div>
+              <div class="action-label">fix-404-error</div>
+              <div class="action-changes">The current title 'Page not found | UGO Anums Consulting' indicates this is a 404 error page that shouldn't be ranking for any queries — this technical issue should be resolved by either creating proper blog content or implementing a 301 redirect to remove it from search results entirely.</div>
+            </div>
+            
+            <div class="action-item">
+              <div class="action-url">
+                <a href="https://ugoanums.com/contact/" target="_blank" onclick="event.stopPropagation()">https://ugoanums.com/contact/</a>
+                <span class="action-ptype">(Home Page)</span>
+              </div>
+              <div class="action-label">maintain-differentiation</div>
+              <div class="action-changes">The current title 'Contact UGO Anums' serves a clear navigational purpose and the H1 'Let's find your growth gap' focuses on conversion rather than SEO expertise positioning, so this page should maintain its current intent differentiation to capture users ready to engage rather than those still researching SEO experts.</div>
+            </div>
+            
+            <div class="action-item">
+              <div class="action-url">
+                <a href="https://ugoanums.com/insights/best-seo-company-in-nigeria/" target="_blank" onclick="event.stopPropagation()">https://ugoanums.com/insights/best-seo-company-in-nigeria/</a>
+                <span class="action-ptype">(Blog Post)</span>
+              </div>
+              <div class="action-label">maintain-differentiation</div>
+              <div class="action-changes">The current title 'Best SEO Companies in Nigeria (2026) — 8 Firms Ranked' and H1 'The Best SEO Companies in Nigeria (2026): 8 Firms, One Honest Ranking' perfectly match the listicle format that dominates the SERP for this query, and since this page ranks for 61 other queries with 1,280 total impressions, it should maintain its current comparative positioning to serve users specifically looking for company comparisons rather than individual expert profiles.</div>
+            </div>
+            
+            <div class="action-item">
+              <div class="action-url">
+                <a href="https://ugoanums.com/service/" target="_blank" onclick="event.stopPropagation()">https://ugoanums.com/service/</a>
+                <span class="action-ptype">(Home Page)</span>
+              </div>
+              <div class="action-label">maintain-differentiation</div>
+              <div class="action-changes">The current title 'Services | UGO Anums Consulting' and H1 'Six ways to grow. One goal.' focus on service categories rather than SEO expertise in Nigeria specifically, which appropriately differentiates this page's intent as a services overview rather than competing for the expert-focused query.</div>
+            </div>
+            
+            <div class="action-item">
+              <div class="action-url">
+                <a href="https://ugoanums.com/service/content-strategy/" target="_blank" onclick="event.stopPropagation()">https://ugoanums.com/service/content-strategy/</a>
+                <span class="action-ptype">(Blog Post)</span>
+              </div>
+              <div class="action-label">maintain-differentiation</div>
+              <div class="action-changes">The current title 'Content Strategy Services | UGO Anums Consulting' focuses on a specific service offering rather than general SEO expertise, which correctly differentiates this page's intent for users seeking content strategy specifically rather than searching for SEO experts broadly.</div>
+            </div>
+            
+            <div class="action-item">
+              <div class="action-url">
+                <a href="https://ugoanums.com/service/conversion-rate-optimisation/" target="_blank" onclick="event.stopPropagation()">https://ugoanums.com/service/conversion-rate-optimisation/</a>
+                <span class="action-ptype">(Blog Post)</span>
+              </div>
+              <div class="action-label">maintain-differentiation</div>
+              <div class="action-changes">The current title 'Conversion Rate Optimisation Services | UGO Anums Consulting' targets a specific service that's distinct from general SEO expertise, appropriately differentiating this page's intent for CRO-focused searches rather than broad SEO expert queries.</div>
+            </div>
+            
+            <div class="action-item">
+              <div class="action-url">
+                <a href="https://ugoanums.com/service/email-marketing/" target="_blank" onclick="event.stopPropagation()">https://ugoanums.com/service/email-marketing/</a>
+                <span class="action-ptype">(Blog Post)</span>
+              </div>
+              <div class="action-label">maintain-differentiation</div>
+              <div class="action-changes">The current title 'Email Marketing Services | UGO Anums Consulting' and H1 'Your list is your most underused growth asset' focus specifically on email marketing rather than SEO expertise, correctly maintaining intent differentiation for users seeking email marketing services rather than SEO experts.</div>
+            </div>
+            
+            <div class="action-item">
+              <div class="action-url">
+                <a href="https://ugoanums.com/service/paid-media/" target="_blank" onclick="event.stopPropagation()">https://ugoanums.com/service/paid-media/</a>
+                <span class="action-ptype">(Blog Post)</span>
+              </div>
+              <div class="action-label">maintain-differentiation</div>
+              <div class="action-changes">The current title 'Paid Media Services | UGO Anums Consulting' and H1 'Google Ads and Meta Ads built around buyer intent' focus on paid advertising rather than organic SEO expertise, appropriately differentiating this page for users seeking paid media services rather than SEO experts.</div>
+            </div>
+            
+            <div class="action-item">
+              <div class="action-url">
+                <a href="https://ugoanums.com/service/seo-consulting/" target="_blank" onclick="event.stopPropagation()">https://ugoanums.com/service/seo-consulting/</a>
+                <span class="action-ptype">(Blog Post)</span>
+              </div>
+              <div class="action-label">enhance-location-targeting</div>
+              <div class="action-changes">The current title 'SEO Services | UGO Anums Consulting' focuses on SEO services but lacks the location targeting that would help it compete for 'seo experts in nigeria' — updating to 'SEO Consulting Services in Nigeria | UGO Anums' would better align with the geographic intent while maintaining the service-focused differentiation from the homepage's broader expert positioning.</div>
+            </div>
+            
+          </div>
+        </div>
+        
+
+      </div>
+    </div>
+    
+    
+    
+    <div class="issue-card" onclick="this.classList.toggle('open')">
+
+      <div class="issue-collapsed">
+        <span class="issue-keyword">"seo specialist in nigeria"</span>
+        <span class="issue-severity">(12.5)</span>
+        <span class="issue-summary-text">The SERP is dominated by listicles and comparison pages ranking SEO companies/specialists, which matches the content page's format perfectly...</span>
+        <span class="toggle-icon">&#9662;</span>
+      </div>
+
+      <div class="issue-details">
+
+        <div class="detail-section">
+          <table class="pages-table">
+            <thead>
+              <tr><th>Page</th><th>Type</th><th>Clicks</th><th>Impr</th><th>CTR</th><th>Pos</th></tr>
+            </thead>
+            <tbody>
+              <tr class="winner-row">
+                <td class="page-url">
+                  <a href="https://ugoanums.com/" target="_blank" onclick="event.stopPropagation()">https://ugoanums.com/</a>
+                  
+                  
+                  <div class="inline-footprint">47 queries &middot; 1,365 total impr &middot; also: "seo expert in nigeria", "seo expert in lagos", "seo consultant lagos"</div>
+                  
+                </td>
+                <td class="page-type-cell">Home Page</td>
+                <td>0</td>
+                <td>38</td>
+                <td>0.0%</td>
+                <td>13.7</td>
+              </tr>
+              
+              <tr>
+                <td class="page-url">
+                  <a href="https://ugoanums.com/insights/best-seo-company-in-nigeria/" target="_blank" onclick="event.stopPropagation()">https://ugoanums.com/insights/best-seo-company-in-nigeria/</a>
+                  
+                  
+                  <div class="inline-footprint">61 queries &middot; 1,280 total impr &middot; also: "seo company in nigeria", "best seo company in nigeria", "seo companies in nigeria"</div>
+                  
+                </td>
+                <td class="page-type-cell">Blog Post</td>
+                <td>0</td>
+                <td>4</td>
+                <td>0.0%</td>
+                <td>56.5</td>
+              </tr>
+              
+            </tbody>
+          </table>
+        </div>
+
+        
+        <div class="detail-section">
+          <div class="content-block">The SERP is dominated by listicles and comparison pages ranking SEO companies/specialists, which matches the content page's format perfectly. The homepage ranks for 47 other queries with 1,365 total impressions and the content page ranks for 61 queries with 1,280 impressions — redirecting either would destroy these rankings. The content page already targets the right commercial intent but needs optimization.</div>
+        </div>
+        
+
+        
+        <div class="detail-section">
+          <div class="content-block">
+            
+            <div class="action-item">
+              <div class="action-url">
+                <a href="https://ugoanums.com/" target="_blank" onclick="event.stopPropagation()">https://ugoanums.com/</a>
+                <span class="action-ptype">(Home Page)</span>
+              </div>
+              <div class="action-label">differentiate for individual consultant positioning</div>
+              <div class="action-changes">The current title 'UGO Anums Consulting - SEO & Growth Marketing Consultancy' and H1 'Your growth has a gap. I find it and fix it.' position this as a personal consultant rather than competing for 'SEO specialist' searches where users want to compare multiple options. Keep the personal consultant positioning and strengthen it with internal links to the comparison page for users seeking multiple options, while expanding the 'About' section to include location-specific credentials and case studies from Nigerian clients to capture branded searches for the consultant personally.</div>
+            </div>
+            
+            <div class="action-item">
+              <div class="action-url">
+                <a href="https://ugoanums.com/insights/best-seo-company-in-nigeria/" target="_blank" onclick="event.stopPropagation()">https://ugoanums.com/insights/best-seo-company-in-nigeria/</a>
+                <span class="action-ptype">(Blog Post)</span>
+              </div>
+              <div class="action-label">optimize for specialist/individual queries</div>
+              <div class="action-changes">The current title 'Best SEO Companies in Nigeria (2026) — 8 Firms Ranked' and H1 'The Best SEO Companies in Nigeria (2026): 8 Firms, One Honest Ranking' perfectly match what's ranking in the SERP, but the page should expand to include a dedicated section for individual SEO specialists versus agencies since the query includes 'specialist' which can mean individual consultants, and add geographical coverage beyond just Lagos to capture the broader 'Nigeria' search intent while maintaining the successful listicle format.</div>
+            </div>
+            
+          </div>
+        </div>
+        
+
+      </div>
+    </div>
+    
+  </div>
+  
+  <div class="topic-group">
+    <div class="topic-header">
+      <div>
+        <span class="topic-title">Anums</span>
+        <span class="topic-count">1 query</span>
+      </div>
+      <div class="topic-meta">
+        <span>Avg severity 31.0</span>
+        <span>2 wasted impr</span>
+      </div>
+    </div>
+
+    
+    
+    
+    <div class="issue-card" onclick="this.classList.toggle('open')">
+
+      <div class="issue-collapsed">
+        <span class="issue-keyword">"anums"</span>
+        <span class="issue-severity">(31.0)</span>
+        <span class="issue-summary-text">This is a navigational query where users searching 'anums' are looking for the brand/person UGO Anums. Both the homepage and about page serv...</span>
+        <span class="toggle-icon">&#9662;</span>
+      </div>
+
+      <div class="issue-details">
+
+        <div class="detail-section">
+          <table class="pages-table">
+            <thead>
+              <tr><th>Page</th><th>Type</th><th>Clicks</th><th>Impr</th><th>CTR</th><th>Pos</th></tr>
+            </thead>
+            <tbody>
+              <tr class="winner-row">
+                <td class="page-url">
+                  <a href="https://ugoanums.com/" target="_blank" onclick="event.stopPropagation()">https://ugoanums.com/</a>
+                  
+                  
+                  <div class="inline-footprint">47 queries &middot; 1,365 total impr &middot; also: "seo expert in nigeria", "seo expert in lagos", "seo consultant lagos"</div>
+                  
+                </td>
+                <td class="page-type-cell">Home Page</td>
+                <td>0</td>
+                <td>6</td>
+                <td>0.0%</td>
+                <td>8.3</td>
+              </tr>
+              
+              <tr>
+                <td class="page-url">
+                  <a href="https://ugoanums.com/about/" target="_blank" onclick="event.stopPropagation()">https://ugoanums.com/about/</a>
+                  
+                  
+                  <div class="inline-footprint">5 queries &middot; 18 total impr &middot; also: "seo expert in nigeria", "seo experts in nigeria", "seo in nigeria"</div>
+                  
+                </td>
+                <td class="page-type-cell">Home Page</td>
+                <td>0</td>
+                <td>2</td>
+                <td>0.0%</td>
+                <td>11</td>
+              </tr>
+              
+            </tbody>
+          </table>
+        </div>
+
+        
+        <div class="detail-section">
+          <div class="content-block">This is a navigational query where users searching 'anums' are looking for the brand/person UGO Anums. Both the homepage and about page serve this navigational intent correctly — users landing on either page when searching the brand name are being served appropriately. Navigational cannibalization within the same brand is not a problem requiring intervention.</div>
+        </div>
+        
+
+        
+        <div class="detail-section">
+          <div class="content-block">
+            
+            <div class="action-item">
+              <div class="action-url">
+                <a href="https://ugoanums.com/" target="_blank" onclick="event.stopPropagation()">https://ugoanums.com/</a>
+                <span class="action-ptype">(Home Page)</span>
+              </div>
+              <div class="action-label">no changes needed</div>
+              <div class="action-changes">The current title 'UGO Anums Consulting - SEO & Growth Marketing Consultancy' already includes the brand name 'Anums' and clearly establishes this as the primary brand page for navigational searches. Since this page ranks for 47 other queries with 1,365 total impressions, maintaining the current optimization approach is best to protect these existing rankings while naturally serving brand name searches.</div>
+            </div>
+            
+            <div class="action-item">
+              <div class="action-url">
+                <a href="https://ugoanums.com/about/" target="_blank" onclick="event.stopPropagation()">https://ugoanums.com/about/</a>
+                <span class="action-ptype">(Home Page)</span>
+              </div>
+              <div class="action-label">no changes needed</div>
+              <div class="action-changes">The current title 'About UGO Anums — SEO Consultant in Lagos, Nigeria' appropriately includes the brand name and serves users who want to learn more about the person behind the brand after searching 'anums'. This page fulfills a legitimate user need for navigational queries and should continue operating as the brand's about page without modification.</div>
+            </div>
+            
+          </div>
+        </div>
+        
+
+      </div>
+    </div>
+    
+  </div>
+  
+  <div class="topic-group">
+    <div class="topic-header">
+      <div>
+        <span class="topic-title">SEO Companies Nigeria</span>
+        <span class="topic-count">1 query</span>
+      </div>
+      <div class="topic-meta">
+        <span>Avg severity 27.5</span>
+        <span>11 wasted impr</span>
+      </div>
+    </div>
+
+    
+    
+    
+    <div class="issue-card" onclick="this.classList.toggle('open')">
+
+      <div class="issue-collapsed">
+        <span class="issue-keyword">"best seo company in nigeria"</span>
+        <span class="issue-severity">(27.5)</span>
+        <span class="issue-summary-text">This is a clear case of URL fragment cannibalization where the main page ranks for 61 other queries with 1,280 total impressions — a redirec...</span>
+        <span class="toggle-icon">&#9662;</span>
+      </div>
+
+      <div class="issue-details">
+
+        <div class="detail-section">
+          <table class="pages-table">
+            <thead>
+              <tr><th>Page</th><th>Type</th><th>Clicks</th><th>Impr</th><th>CTR</th><th>Pos</th></tr>
+            </thead>
+            <tbody>
+              <tr class="winner-row">
+                <td class="page-url">
+                  <a href="https://ugoanums.com/insights/best-seo-company-in-nigeria/" target="_blank" onclick="event.stopPropagation()">https://ugoanums.com/insights/best-seo-company-in-nigeria/</a>
+                  
+                  
+                  <div class="inline-footprint">61 queries &middot; 1,280 total impr &middot; also: "seo company in nigeria", "seo companies in nigeria", "seo company"</div>
+                  
+                </td>
+                <td class="page-type-cell">Blog Post</td>
+                <td>1</td>
+                <td>168</td>
+                <td>0.6%</td>
+                <td>34.0</td>
+              </tr>
+              
+              <tr>
+                <td class="page-url">
+                  <a href="https://ugoanums.com/insights/best-seo-company-in-nigeria/#sec-1" target="_blank" onclick="event.stopPropagation()">https://ugoanums.com/insights/best-seo-company-in-nigeria/#sec-1</a>
+                  
+                  
+                  <div class="inline-footprint">1 queries &middot; 2 total impr</div>
+                  
+                </td>
+                <td class="page-type-cell">Blog Post</td>
+                <td>0</td>
+                <td>2</td>
+                <td>0.0%</td>
+                <td>9</td>
+              </tr>
+              
+              <tr>
+                <td class="page-url">
+                  <a href="https://ugoanums.com/insights/best-seo-company-in-nigeria/#sec-2" target="_blank" onclick="event.stopPropagation()">https://ugoanums.com/insights/best-seo-company-in-nigeria/#sec-2</a>
+                  
+                  
+                  <div class="inline-footprint">1 queries &middot; 2 total impr</div>
+                  
+                </td>
+                <td class="page-type-cell">Blog Post</td>
+                <td>0</td>
+                <td>2</td>
+                <td>0.0%</td>
+                <td>9</td>
+              </tr>
+              
+              <tr>
+                <td class="page-url">
+                  <a href="https://ugoanums.com/insights/best-seo-company-in-nigeria/#sec-3" target="_blank" onclick="event.stopPropagation()">https://ugoanums.com/insights/best-seo-company-in-nigeria/#sec-3</a>
+                  
+                  
+                  <div class="inline-footprint">1 queries &middot; 1 total impr</div>
+                  
+                </td>
+                <td class="page-type-cell">Blog Post</td>
+                <td>0</td>
+                <td>1</td>
+                <td>0.0%</td>
+                <td>7</td>
+              </tr>
+              
+              <tr>
+                <td class="page-url">
+                  <a href="https://ugoanums.com/insights/best-seo-company-in-nigeria/#sec-4" target="_blank" onclick="event.stopPropagation()">https://ugoanums.com/insights/best-seo-company-in-nigeria/#sec-4</a>
+                  
+                  
+                  <div class="inline-footprint">1 queries &middot; 2 total impr</div>
+                  
+                </td>
+                <td class="page-type-cell">Blog Post</td>
+                <td>0</td>
+                <td>2</td>
+                <td>0.0%</td>
+                <td>9</td>
+              </tr>
+              
+              <tr>
+                <td class="page-url">
+                  <a href="https://ugoanums.com/insights/best-seo-company-in-nigeria/#sec-5" target="_blank" onclick="event.stopPropagation()">https://ugoanums.com/insights/best-seo-company-in-nigeria/#sec-5</a>
+                  
+                  
+                  <div class="inline-footprint">1 queries &middot; 2 total impr</div>
+                  
+                </td>
+                <td class="page-type-cell">Blog Post</td>
+                <td>0</td>
+                <td>2</td>
+                <td>0.0%</td>
+                <td>9</td>
+              </tr>
+              
+              <tr>
+                <td class="page-url">
+                  <a href="https://ugoanums.com/insights/best-seo-company-in-nigeria/#sec-6" target="_blank" onclick="event.stopPropagation()">https://ugoanums.com/insights/best-seo-company-in-nigeria/#sec-6</a>
+                  
+                  
+                  <div class="inline-footprint">1 queries &middot; 1 total impr</div>
+                  
+                </td>
+                <td class="page-type-cell">Blog Post</td>
+                <td>0</td>
+                <td>1</td>
+                <td>0.0%</td>
+                <td>7</td>
+              </tr>
+              
+              <tr>
+                <td class="page-url">
+                  <a href="https://ugoanums.com/insights/best-seo-company-in-nigeria/#sec-criteria" target="_blank" onclick="event.stopPropagation()">https://ugoanums.com/insights/best-seo-company-in-nigeria/#sec-criteria</a>
+                  
+                  
+                  <div class="inline-footprint">1 queries &middot; 1 total impr</div>
+                  
+                </td>
+                <td class="page-type-cell">Blog Post</td>
+                <td>0</td>
+                <td>1</td>
+                <td>0.0%</td>
+                <td>7</td>
+              </tr>
+              
+            </tbody>
+          </table>
+        </div>
+
+        
+        <div class="detail-section">
+          <div class="content-block">This is a clear case of URL fragment cannibalization where the main page ranks for 61 other queries with 1,280 total impressions — a redirect would destroy these rankings. The fragment URLs (#sec-1, #sec-2, etc.) are indexing separately and splitting authority from the main page, which perfectly matches the commercial intent shown in the SERP with its listicle format and comprehensive company rankings.</div>
+        </div>
+        
+
+        
+        <div class="detail-section">
+          <div class="content-block">
+            
+            <div class="action-item">
+              <div class="action-url">
+                <a href="https://ugoanums.com/insights/best-seo-company-in-nigeria/" target="_blank" onclick="event.stopPropagation()">https://ugoanums.com/insights/best-seo-company-in-nigeria/</a>
+                <span class="action-ptype">(Blog Post)</span>
+              </div>
+              <div class="action-label">keep-as-primary</div>
+              <div class="action-changes">The current title 'Best SEO Companies in Nigeria (2026) — 8 Firms Ranked' and H1 'The Best SEO Companies in Nigeria (2026): 8 Firms, One Honest Ranking' already perfectly target the commercial intent of users searching for the best SEO companies, matching the listicle format that dominates the SERP, so instead of changing the title focus on adding internal links from other service pages to boost this page's authority and help it climb from position 34 to compete with the Clutch and GoodFirms rankings in the top 3.</div>
+            </div>
+            
+            <div class="action-item">
+              <div class="action-url">
+                <a href="https://ugoanums.com/insights/best-seo-company-in-nigeria/#sec-1" target="_blank" onclick="event.stopPropagation()">https://ugoanums.com/insights/best-seo-company-in-nigeria/#sec-1</a>
+                <span class="action-ptype">(Blog Post)</span>
+              </div>
+              <div class="action-label">noindex-fragment</div>
+              <div class="action-changes">This fragment URL is creating unnecessary indexing competition with the main page and should be prevented from appearing in search results through robots meta noindex or by removing the fragment from the sitemap, allowing all ranking authority to consolidate on the main page URL.</div>
+            </div>
+            
+            <div class="action-item">
+              <div class="action-url">
+                <a href="https://ugoanums.com/insights/best-seo-company-in-nigeria/#sec-2" target="_blank" onclick="event.stopPropagation()">https://ugoanums.com/insights/best-seo-company-in-nigeria/#sec-2</a>
+                <span class="action-ptype">(Blog Post)</span>
+              </div>
+              <div class="action-label">noindex-fragment</div>
+              <div class="action-changes">This fragment URL is creating unnecessary indexing competition with the main page and should be prevented from appearing in search results through robots meta noindex or by removing the fragment from the sitemap, allowing all ranking authority to consolidate on the main page URL.</div>
+            </div>
+            
+            <div class="action-item">
+              <div class="action-url">
+                <a href="https://ugoanums.com/insights/best-seo-company-in-nigeria/#sec-3" target="_blank" onclick="event.stopPropagation()">https://ugoanums.com/insights/best-seo-company-in-nigeria/#sec-3</a>
+                <span class="action-ptype">(Blog Post)</span>
+              </div>
+              <div class="action-label">noindex-fragment</div>
+              <div class="action-changes">This fragment URL is creating unnecessary indexing competition with the main page and should be prevented from appearing in search results through robots meta noindex or by removing the fragment from the sitemap, allowing all ranking authority to consolidate on the main page URL.</div>
+            </div>
+            
+            <div class="action-item">
+              <div class="action-url">
+                <a href="https://ugoanums.com/insights/best-seo-company-in-nigeria/#sec-4" target="_blank" onclick="event.stopPropagation()">https://ugoanums.com/insights/best-seo-company-in-nigeria/#sec-4</a>
+                <span class="action-ptype">(Blog Post)</span>
+              </div>
+              <div class="action-label">noindex-fragment</div>
+              <div class="action-changes">This fragment URL is creating unnecessary indexing competition with the main page and should be prevented from appearing in search results through robots meta noindex or by removing the fragment from the sitemap, allowing all ranking authority to consolidate on the main page URL.</div>
+            </div>
+            
+            <div class="action-item">
+              <div class="action-url">
+                <a href="https://ugoanums.com/insights/best-seo-company-in-nigeria/#sec-5" target="_blank" onclick="event.stopPropagation()">https://ugoanums.com/insights/best-seo-company-in-nigeria/#sec-5</a>
+                <span class="action-ptype">(Blog Post)</span>
+              </div>
+              <div class="action-label">noindex-fragment</div>
+              <div class="action-changes">This fragment URL is creating unnecessary indexing competition with the main page and should be prevented from appearing in search results through robots meta noindex or by removing the fragment from the sitemap, allowing all ranking authority to consolidate on the main page URL.</div>
+            </div>
+            
+            <div class="action-item">
+              <div class="action-url">
+                <a href="https://ugoanums.com/insights/best-seo-company-in-nigeria/#sec-6" target="_blank" onclick="event.stopPropagation()">https://ugoanums.com/insights/best-seo-company-in-nigeria/#sec-6</a>
+                <span class="action-ptype">(Blog Post)</span>
+              </div>
+              <div class="action-label">noindex-fragment</div>
+              <div class="action-changes">This fragment URL is creating unnecessary indexing competition with the main page and should be prevented from appearing in search results through robots meta noindex or by removing the fragment from the sitemap, allowing all ranking authority to consolidate on the main page URL.</div>
+            </div>
+            
+            <div class="action-item">
+              <div class="action-url">
+                <a href="https://ugoanums.com/insights/best-seo-company-in-nigeria/#sec-criteria" target="_blank" onclick="event.stopPropagation()">https://ugoanums.com/insights/best-seo-company-in-nigeria/#sec-criteria</a>
+                <span class="action-ptype">(Blog Post)</span>
+              </div>
+              <div class="action-label">noindex-fragment</div>
+              <div class="action-changes">This fragment URL is creating unnecessary indexing competition with the main page and should be prevented from appearing in search results through robots meta noindex or by removing the fragment from the sitemap, allowing all ranking authority to consolidate on the main page URL.</div>
+            </div>
+            
+          </div>
+        </div>
+        
+
+      </div>
+    </div>
+    
+  </div>
+  
+  
+
+  <div class="footer">
+    Prepared by UGO Anums &middot; ugoanums.com
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,1954 @@
+{
+  "meta": {
+    "site": "https://ugoanums.com/",
+    "generated_at": "2026-04-05T19:39:59.119468",
+    "total_queries_analyzed": 208,
+    "cannibalized_topic_groups": 4,
+    "total_cannibalized_queries": 12
+  },
+  "summary": {
+    "total_wasted_impressions": 283,
+    "high_severity_count": 0,
+    "medium_severity_count": 1,
+    "low_severity_count": 11
+  },
+  "topic_groups": [
+    {
+      "topic_id": 0,
+      "topic_name": "SEO Services Nigeria",
+      "representative_query": "seo umough nigeria",
+      "queries": [
+        "seo umough nigeria",
+        "seo services nigeria",
+        "professional seo services nigeria",
+        "seo services in nigeria",
+        "seo nigeria",
+        "seo in nigeria"
+      ],
+      "issue_count": 6,
+      "total_severity": 169.0,
+      "avg_severity": 28.2,
+      "total_wasted_impressions": 180,
+      "issues": [
+        {
+          "query": "seo umough nigeria",
+          "severity": 51.6,
+          "page_count": 2,
+          "total_clicks": 0,
+          "total_impressions": 97,
+          "wasted_impressions": 1,
+          "winner": {
+            "page": "https://ugoanums.com/",
+            "clicks": 0,
+            "impressions": 96,
+            "position": 1.7,
+            "ctr": 0
+          },
+          "competing_pages": [
+            {
+              "page": "https://ugoanums.com/about/",
+              "clicks": 0,
+              "impressions": 1,
+              "position": 4,
+              "ctr": 0
+            }
+          ],
+          "serp_analysis": {
+            "query": "seo umough nigeria",
+            "serp_intent": "commercial",
+            "dominant_types": [
+              "listicles"
+            ],
+            "rewarded_format": "listicle / comparison",
+            "has_featured_snippet": false,
+            "featured_snippet": null
+          },
+          "recommendation": {
+            "recommended_winner": "https://ugoanums.com/",
+            "action_type": "add-canonical",
+            "serp_intent": "commercial",
+            "reasoning": "The homepage already ranks #1 and contains the business value proposition that SERP visitors expect for this commercial query. The about page serves a secondary informational purpose but shouldn't compete for the same commercial query. Adding a canonical tag from about to homepage preserves the primary ranking while eliminating cannibalization without destroying any meaningful traffic.",
+            "page_actions": [
+              {
+                "url": "https://ugoanums.com/",
+                "page_type": "homepage",
+                "action": "maintain-primary-ranking",
+                "changes": "The current title 'UGO Anums Consulting - SEO & Growth Marketing Consultancy' effectively positions the business for commercial SEO queries in Nigeria and should remain unchanged since it already captures the target commercial intent and maintains the #1 ranking position."
+              },
+              {
+                "url": "https://ugoanums.com/about/",
+                "page_type": "about",
+                "action": "add-canonical-tag",
+                "changes": "The current title 'About UGO Anums \u2014 SEO Consultant in Lagos, Nigeria' appropriately describes the page content but creates unnecessary competition with the homepage for commercial SEO queries, so adding a canonical tag pointing to the homepage will consolidate ranking signals while preserving the about page's informational purpose for users who specifically seek background information."
+              }
+            ]
+          },
+          "page_footprints": {
+            "https://ugoanums.com/": {
+              "total_queries": 47,
+              "total_impressions": 1365,
+              "total_clicks": 3,
+              "other_top_queries": [
+                {
+                  "query": "seo expert in nigeria",
+                  "clicks": 2,
+                  "impressions": 500,
+                  "position": 11.5
+                },
+                {
+                  "query": "seo expert in lagos",
+                  "clicks": 1,
+                  "impressions": 197,
+                  "position": 9.1
+                },
+                {
+                  "query": "seo consultant lagos",
+                  "clicks": 0,
+                  "impressions": 136,
+                  "position": 14.7
+                }
+              ]
+            },
+            "https://ugoanums.com/about/": {
+              "total_queries": 5,
+              "total_impressions": 18,
+              "total_clicks": 0,
+              "other_top_queries": [
+                {
+                  "query": "seo expert in nigeria",
+                  "clicks": 0,
+                  "impressions": 11,
+                  "position": 10.7
+                },
+                {
+                  "query": "anums",
+                  "clicks": 0,
+                  "impressions": 2,
+                  "position": 11
+                },
+                {
+                  "query": "seo experts in nigeria",
+                  "clicks": 0,
+                  "impressions": 2,
+                  "position": 9.5
+                }
+              ]
+            }
+          },
+          "page_types": {
+            "https://ugoanums.com/": "homepage",
+            "https://ugoanums.com/about/": "homepage"
+          }
+        },
+        {
+          "query": "seo services nigeria",
+          "severity": 33.3,
+          "page_count": 2,
+          "total_clicks": 0,
+          "total_impressions": 72,
+          "wasted_impressions": 65,
+          "winner": {
+            "page": "https://ugoanums.com/",
+            "clicks": 0,
+            "impressions": 7,
+            "position": 57.4,
+            "ctr": 0
+          },
+          "competing_pages": [
+            {
+              "page": "https://ugoanums.com/insights/best-seo-company-in-nigeria/",
+              "clicks": 0,
+              "impressions": 65,
+              "position": 68.5,
+              "ctr": 0
+            }
+          ],
+          "serp_analysis": {
+            "query": "seo services nigeria",
+            "serp_intent": "commercial",
+            "dominant_types": [
+              "listicles",
+              "local_results"
+            ],
+            "rewarded_format": "listicle / comparison",
+            "has_featured_snippet": false,
+            "featured_snippet": null
+          },
+          "recommendation": {
+            "recommended_winner": "https://ugoanums.com/insights/best-seo-company-in-nigeria/",
+            "action_type": "differentiate-by-intent",
+            "serp_intent": "commercial",
+            "reasoning": "The SERP clearly rewards listicle/comparison formats for commercial queries like this, with Clutch rankings and comparison pages dominating positions 1-10. The blog post already matches this format perfectly with its ranking approach, while the homepage serves a different commercial intent (direct service inquiry). Both pages rank for 47+ and 61+ other queries respectively with substantial impression volumes, so redirecting either would destroy significant existing rankings.",
+            "page_actions": [
+              {
+                "url": "https://ugoanums.com/",
+                "page_type": "homepage",
+                "action": "optimize-for-direct-service-intent",
+                "changes": "The current title 'UGO Anums Consulting - SEO & Growth Marketing Consultancy' and H1 'Your growth has a gap. I find it and fix it.' serve the homepage's direct service inquiry purpose well, but could better capture users specifically searching for SEO services in Nigeria by incorporating geographic targeting in the meta description to mention Lagos/Nigeria expertise, while keeping the title focused on the broader consultancy positioning to maintain rankings for the 47 other queries this page serves."
+              },
+              {
+                "url": "https://ugoanums.com/insights/best-seo-company-in-nigeria/",
+                "page_type": "content_page",
+                "action": "strengthen-comparison-content",
+                "changes": "The current title 'Best SEO Companies in Nigeria (2026) \u2014 8 Firms Ranked' and H1 'The Best SEO Companies in Nigeria (2026): 8 Firms, One Honest Ranking' already perfectly match the SERP's preference for comparison/ranking content, but the page could strengthen its commercial intent by expanding the comparison criteria section and adding more detailed service breakdowns for each firm to better compete with Clutch-style comprehensive comparisons that dominate the top results."
+              }
+            ]
+          },
+          "page_footprints": {
+            "https://ugoanums.com/": {
+              "total_queries": 47,
+              "total_impressions": 1365,
+              "total_clicks": 3,
+              "other_top_queries": [
+                {
+                  "query": "seo expert in nigeria",
+                  "clicks": 2,
+                  "impressions": 500,
+                  "position": 11.5
+                },
+                {
+                  "query": "seo expert in lagos",
+                  "clicks": 1,
+                  "impressions": 197,
+                  "position": 9.1
+                },
+                {
+                  "query": "seo consultant lagos",
+                  "clicks": 0,
+                  "impressions": 136,
+                  "position": 14.7
+                }
+              ]
+            },
+            "https://ugoanums.com/insights/best-seo-company-in-nigeria/": {
+              "total_queries": 61,
+              "total_impressions": 1280,
+              "total_clicks": 3,
+              "other_top_queries": [
+                {
+                  "query": "seo company in nigeria",
+                  "clicks": 0,
+                  "impressions": 198,
+                  "position": 44.5
+                },
+                {
+                  "query": "best seo company in nigeria",
+                  "clicks": 1,
+                  "impressions": 168,
+                  "position": 34.0
+                },
+                {
+                  "query": "seo companies in nigeria",
+                  "clicks": 0,
+                  "impressions": 123,
+                  "position": 36.5
+                }
+              ]
+            }
+          },
+          "page_types": {
+            "https://ugoanums.com/": "homepage",
+            "https://ugoanums.com/insights/best-seo-company-in-nigeria/": "content_page"
+          }
+        },
+        {
+          "query": "professional seo services nigeria",
+          "severity": 26.5,
+          "page_count": 2,
+          "total_clicks": 0,
+          "total_impressions": 3,
+          "wasted_impressions": 2,
+          "winner": {
+            "page": "https://ugoanums.com/",
+            "clicks": 0,
+            "impressions": 1,
+            "position": 42,
+            "ctr": 0
+          },
+          "competing_pages": [
+            {
+              "page": "https://ugoanums.com/insights/best-seo-company-in-nigeria/",
+              "clicks": 0,
+              "impressions": 2,
+              "position": 46,
+              "ctr": 0
+            }
+          ],
+          "serp_analysis": {
+            "query": "professional seo services nigeria",
+            "serp_intent": "commercial",
+            "dominant_types": [
+              "listicles",
+              "local_results"
+            ],
+            "rewarded_format": "listicle / comparison",
+            "has_featured_snippet": false,
+            "featured_snippet": null
+          },
+          "recommendation": {
+            "recommended_winner": "https://ugoanums.com/insights/best-seo-company-in-nigeria/",
+            "action_type": "differentiate-by-intent",
+            "serp_intent": "commercial",
+            "reasoning": "The SERP clearly rewards listicles and comparison content for this commercial query, as shown by Clutch.co's #1 ranking with 'Top SEO Companies in Nigeria' format. The blog post already matches this intent with its current title 'Best SEO Companies in Nigeria (2026) \u2014 8 Firms Ranked' while the homepage serves a different purpose. Both pages rank for 47-61 other queries with over 1,200 total impressions each \u2014 redirecting either would destroy substantial rankings.",
+            "page_actions": [
+              {
+                "url": "https://ugoanums.com/",
+                "page_type": "homepage",
+                "action": "optimize-for-personal-branding",
+                "changes": "The current title 'UGO Anums Consulting - SEO & Growth Marketing Consultancy' and H1 'Your growth has a gap. I find it and fix it.' position this as a personal consultancy rather than targeting the broader 'professional seo services nigeria' query, which is actually appropriate since this homepage ranks for 47 other queries and serves the personal brand positioning. Instead of changing the title, strengthen the internal link from this page to the blog post using anchor text like 'professional SEO services in Nigeria' to pass authority to the more relevant content piece."
+              },
+              {
+                "url": "https://ugoanums.com/insights/best-seo-company-in-nigeria/",
+                "page_type": "content_page",
+                "action": "minor-title-optimization",
+                "changes": "The current title 'Best SEO Companies in Nigeria (2026) \u2014 8 Firms Ranked' already perfectly matches what Google is rewarding in the SERP (listicle format comparing SEO companies), so no major title change is needed since it captures the commercial intent. To better capture the specific 'professional seo services nigeria' variation, add a dedicated H2 section like 'What Makes These Professional SEO Services Stand Out in Nigeria' and ensure the introduction paragraph includes the exact phrase 'professional SEO services Nigeria' within the first 100 words to strengthen topical relevance."
+              }
+            ]
+          },
+          "page_footprints": {
+            "https://ugoanums.com/": {
+              "total_queries": 47,
+              "total_impressions": 1365,
+              "total_clicks": 3,
+              "other_top_queries": [
+                {
+                  "query": "seo expert in nigeria",
+                  "clicks": 2,
+                  "impressions": 500,
+                  "position": 11.5
+                },
+                {
+                  "query": "seo expert in lagos",
+                  "clicks": 1,
+                  "impressions": 197,
+                  "position": 9.1
+                },
+                {
+                  "query": "seo consultant lagos",
+                  "clicks": 0,
+                  "impressions": 136,
+                  "position": 14.7
+                }
+              ]
+            },
+            "https://ugoanums.com/insights/best-seo-company-in-nigeria/": {
+              "total_queries": 61,
+              "total_impressions": 1280,
+              "total_clicks": 3,
+              "other_top_queries": [
+                {
+                  "query": "seo company in nigeria",
+                  "clicks": 0,
+                  "impressions": 198,
+                  "position": 44.5
+                },
+                {
+                  "query": "best seo company in nigeria",
+                  "clicks": 1,
+                  "impressions": 168,
+                  "position": 34.0
+                },
+                {
+                  "query": "seo companies in nigeria",
+                  "clicks": 0,
+                  "impressions": 123,
+                  "position": 36.5
+                }
+              ]
+            }
+          },
+          "page_types": {
+            "https://ugoanums.com/": "homepage",
+            "https://ugoanums.com/insights/best-seo-company-in-nigeria/": "content_page"
+          }
+        },
+        {
+          "query": "seo services in nigeria",
+          "severity": 25.1,
+          "page_count": 2,
+          "total_clicks": 0,
+          "total_impressions": 54,
+          "wasted_impressions": 47,
+          "winner": {
+            "page": "https://ugoanums.com/",
+            "clicks": 0,
+            "impressions": 7,
+            "position": 51,
+            "ctr": 0
+          },
+          "competing_pages": [
+            {
+              "page": "https://ugoanums.com/insights/best-seo-company-in-nigeria/",
+              "clicks": 0,
+              "impressions": 47,
+              "position": 65.9,
+              "ctr": 0
+            }
+          ],
+          "serp_analysis": {
+            "query": "seo services in nigeria",
+            "serp_intent": "commercial",
+            "dominant_types": [
+              "listicles",
+              "local_results"
+            ],
+            "rewarded_format": "listicle / comparison",
+            "has_featured_snippet": false,
+            "featured_snippet": null
+          },
+          "recommendation": {
+            "recommended_winner": "https://ugoanums.com/insights/best-seo-company-in-nigeria/",
+            "action_type": "differentiate-by-intent",
+            "serp_intent": "commercial",
+            "reasoning": "The SERP strongly rewards listicle comparison content (Clutch rankings, GoodFirms rankings) over service provider homepages for this commercial query. The blog post ranks for 61 other queries with 1,280 total impressions \u2014 a redirect would destroy these rankings. The homepage should differentiate toward personal branding while the listicle captures comparison shoppers.",
+            "page_actions": [
+              {
+                "url": "https://ugoanums.com/",
+                "page_type": "homepage",
+                "action": "differentiate toward personal expert positioning",
+                "changes": "The current title 'UGO Anums Consulting - SEO & Growth Marketing Consultancy' and H1 'Your growth has a gap. I find it and fix it.' position you as a consultant but don't leverage Nigeria geo-targeting that could differentiate from the listicle page. Consider adjusting the title to 'UGO Anums - Nigeria's Growth Marketing & SEO Consultant' to capture personal expert searches while letting the listicle page own the company comparison searches, as this would align with what searchers expect when looking for individual expertise versus company comparisons."
+              },
+              {
+                "url": "https://ugoanums.com/insights/best-seo-company-in-nigeria/",
+                "page_type": "content_page",
+                "action": "maintain as the winner for this query",
+                "changes": "The current title 'Best SEO Companies in Nigeria (2026) \u2014 8 Firms Ranked' and H1 'The Best SEO Companies in Nigeria (2026): 8 Firms, One Honest Ranking' perfectly match the commercial intent and listicle format that dominates the SERP, where comparison content from Clutch and GoodFirms ranks #1 and #7. This page should continue targeting the comparison-shopping segment while internal linking could be strengthened to drive qualified leads from comparison shoppers to your consultation booking page."
+              }
+            ]
+          },
+          "page_footprints": {
+            "https://ugoanums.com/": {
+              "total_queries": 47,
+              "total_impressions": 1365,
+              "total_clicks": 3,
+              "other_top_queries": [
+                {
+                  "query": "seo expert in nigeria",
+                  "clicks": 2,
+                  "impressions": 500,
+                  "position": 11.5
+                },
+                {
+                  "query": "seo expert in lagos",
+                  "clicks": 1,
+                  "impressions": 197,
+                  "position": 9.1
+                },
+                {
+                  "query": "seo consultant lagos",
+                  "clicks": 0,
+                  "impressions": 136,
+                  "position": 14.7
+                }
+              ]
+            },
+            "https://ugoanums.com/insights/best-seo-company-in-nigeria/": {
+              "total_queries": 61,
+              "total_impressions": 1280,
+              "total_clicks": 3,
+              "other_top_queries": [
+                {
+                  "query": "seo company in nigeria",
+                  "clicks": 0,
+                  "impressions": 198,
+                  "position": 44.5
+                },
+                {
+                  "query": "best seo company in nigeria",
+                  "clicks": 1,
+                  "impressions": 168,
+                  "position": 34.0
+                },
+                {
+                  "query": "seo companies in nigeria",
+                  "clicks": 0,
+                  "impressions": 123,
+                  "position": 36.5
+                }
+              ]
+            }
+          },
+          "page_types": {
+            "https://ugoanums.com/": "homepage",
+            "https://ugoanums.com/insights/best-seo-company-in-nigeria/": "content_page"
+          }
+        },
+        {
+          "query": "seo nigeria",
+          "severity": 22.5,
+          "page_count": 2,
+          "total_clicks": 0,
+          "total_impressions": 77,
+          "wasted_impressions": 56,
+          "winner": {
+            "page": "https://ugoanums.com/",
+            "clicks": 0,
+            "impressions": 21,
+            "position": 23.5,
+            "ctr": 0
+          },
+          "competing_pages": [
+            {
+              "page": "https://ugoanums.com/insights/best-seo-company-in-nigeria/",
+              "clicks": 0,
+              "impressions": 56,
+              "position": 52.7,
+              "ctr": 0
+            }
+          ],
+          "serp_analysis": {
+            "query": "seo nigeria",
+            "serp_intent": "commercial",
+            "dominant_types": [
+              "listicles"
+            ],
+            "rewarded_format": "listicle / comparison",
+            "has_featured_snippet": false,
+            "featured_snippet": null
+          },
+          "recommendation": {
+            "recommended_winner": "https://ugoanums.com/insights/best-seo-company-in-nigeria/",
+            "action_type": "differentiate-by-intent",
+            "serp_intent": "commercial",
+            "reasoning": "The SERP rewards listicles comparing SEO companies, not service provider homepages. The blog post with title 'Best SEO Companies in Nigeria (2026) \u2014 8 Firms Ranked' matches SERP intent perfectly, while the homepage serves broader brand positioning. The homepage ranks for 47 other queries with 1,365 total impressions \u2014 differentiation preserves these rankings while letting each page serve its intended purpose.",
+            "page_actions": [
+              {
+                "url": "https://ugoanums.com/",
+                "page_type": "homepage",
+                "action": "optimize for personal branding queries",
+                "changes": "The current title 'UGO Anums Consulting - SEO & Growth Marketing Consultancy' and H1 'Your growth has a gap. I find it and fix it.' effectively position this as a personal consultancy brand rather than competing on generic 'SEO Nigeria' searches, which is exactly right since this homepage ranks well for branded queries like 'seo expert in nigeria' and 'seo consultant lagos' \u2014 maintain this positioning and strengthen internal linking to the company comparison page for users seeking vendor research."
+              },
+              {
+                "url": "https://ugoanums.com/insights/best-seo-company-in-nigeria/",
+                "page_type": "content_page",
+                "action": "strengthen competitive comparison focus",
+                "changes": "The current title 'Best SEO Companies in Nigeria (2026) \u2014 8 Firms Ranked' and H1 'The Best SEO Companies in Nigeria (2026): 8 Firms, One Honest Ranking' perfectly match what the SERP rewards (company comparison listicles) but could benefit from adding 'SEO Nigeria' variations in the H2 subheadings and expanding comparison criteria to include more Nigerian market-specific evaluation factors like local case studies and naira-based pricing transparency."
+              }
+            ]
+          },
+          "page_footprints": {
+            "https://ugoanums.com/": {
+              "total_queries": 47,
+              "total_impressions": 1365,
+              "total_clicks": 3,
+              "other_top_queries": [
+                {
+                  "query": "seo expert in nigeria",
+                  "clicks": 2,
+                  "impressions": 500,
+                  "position": 11.5
+                },
+                {
+                  "query": "seo expert in lagos",
+                  "clicks": 1,
+                  "impressions": 197,
+                  "position": 9.1
+                },
+                {
+                  "query": "seo consultant lagos",
+                  "clicks": 0,
+                  "impressions": 136,
+                  "position": 14.7
+                }
+              ]
+            },
+            "https://ugoanums.com/insights/best-seo-company-in-nigeria/": {
+              "total_queries": 61,
+              "total_impressions": 1280,
+              "total_clicks": 3,
+              "other_top_queries": [
+                {
+                  "query": "seo company in nigeria",
+                  "clicks": 0,
+                  "impressions": 198,
+                  "position": 44.5
+                },
+                {
+                  "query": "best seo company in nigeria",
+                  "clicks": 1,
+                  "impressions": 168,
+                  "position": 34.0
+                },
+                {
+                  "query": "seo companies in nigeria",
+                  "clicks": 0,
+                  "impressions": 123,
+                  "position": 36.5
+                }
+              ]
+            }
+          },
+          "page_types": {
+            "https://ugoanums.com/": "homepage",
+            "https://ugoanums.com/insights/best-seo-company-in-nigeria/": "content_page"
+          }
+        },
+        {
+          "query": "seo in nigeria",
+          "severity": 10.0,
+          "page_count": 5,
+          "total_clicks": 0,
+          "total_impressions": 15,
+          "wasted_impressions": 9,
+          "winner": {
+            "page": "https://ugoanums.com/",
+            "clicks": 0,
+            "impressions": 6,
+            "position": 29.3,
+            "ctr": 0
+          },
+          "competing_pages": [
+            {
+              "page": "https://ugoanums.com/about/",
+              "clicks": 0,
+              "impressions": 2,
+              "position": 11,
+              "ctr": 0
+            },
+            {
+              "page": "https://ugoanums.com/blog/",
+              "clicks": 0,
+              "impressions": 2,
+              "position": 11,
+              "ctr": 0
+            },
+            {
+              "page": "https://ugoanums.com/contact/",
+              "clicks": 0,
+              "impressions": 2,
+              "position": 11,
+              "ctr": 0
+            },
+            {
+              "page": "https://ugoanums.com/insights/best-seo-company-in-nigeria/",
+              "clicks": 0,
+              "impressions": 3,
+              "position": 41.7,
+              "ctr": 0
+            }
+          ],
+          "serp_analysis": {
+            "query": "seo in nigeria",
+            "serp_intent": "commercial",
+            "dominant_types": [
+              "listicles"
+            ],
+            "rewarded_format": "listicle / comparison",
+            "has_featured_snippet": false,
+            "featured_snippet": null
+          },
+          "recommendation": {
+            "recommended_winner": "https://ugoanums.com/insights/best-seo-company-in-nigeria/",
+            "action_type": "differentiate-by-intent",
+            "serp_intent": "commercial",
+            "reasoning": "The SERP rewards listicles and comparison content for 'seo in nigeria' queries, with 9 of 10 results being agency listings or comparison pages. The listicle page matches this intent perfectly but ranks poorly at position 41.7. The homepage ranks for 47 other queries with 1,365 total impressions, and the listicle ranks for 61 other queries with 1,280 total impressions \u2014 redirects would destroy these rankings. Both pages need content differentiation to serve distinct user intents.",
+            "page_actions": [
+              {
+                "url": "https://ugoanums.com/",
+                "page_type": "homepage",
+                "action": "differentiate-by-intent",
+                "changes": "The current title 'UGO Anums Consulting - SEO & Growth Marketing Consultancy' and H1 'Your growth has a gap. I find it and fix it.' focus on personal consulting services rather than the broader SEO landscape in Nigeria that searchers want to explore. Update the title to 'Nigeria SEO Expert | Growth Marketing Consultant - UGO Anums' and revise the H1 to 'Leading SEO Expert Serving Nigerian Businesses' to better target users seeking individual expertise rather than company comparisons, while maintaining the personal brand positioning that differentiates from the listicle page."
+              },
+              {
+                "url": "https://ugoanums.com/insights/best-seo-company-in-nigeria/",
+                "page_type": "content_page",
+                "action": "optimize-for-target-query",
+                "changes": "The current title 'Best SEO Companies in Nigeria (2026) \u2014 8 Firms Ranked' and H1 'The Best SEO Companies in Nigeria (2026): 8 Firms, One Honest Ranking' are perfectly aligned with SERP intent but need broader keyword coverage. Expand the title to 'SEO in Nigeria: Best Companies & Services (2026) \u2014 8 Firms Ranked' and add an introduction section targeting 'seo in nigeria' specifically, covering the overall SEO landscape, market trends, and service availability across Nigeria before diving into the company rankings, which will capture both broad 'seo in nigeria' searches and specific 'best seo companies' queries."
+              }
+            ]
+          },
+          "page_footprints": {
+            "https://ugoanums.com/": {
+              "total_queries": 47,
+              "total_impressions": 1365,
+              "total_clicks": 3,
+              "other_top_queries": [
+                {
+                  "query": "seo expert in nigeria",
+                  "clicks": 2,
+                  "impressions": 500,
+                  "position": 11.5
+                },
+                {
+                  "query": "seo expert in lagos",
+                  "clicks": 1,
+                  "impressions": 197,
+                  "position": 9.1
+                },
+                {
+                  "query": "seo consultant lagos",
+                  "clicks": 0,
+                  "impressions": 136,
+                  "position": 14.7
+                }
+              ]
+            },
+            "https://ugoanums.com/about/": {
+              "total_queries": 5,
+              "total_impressions": 18,
+              "total_clicks": 0,
+              "other_top_queries": [
+                {
+                  "query": "seo expert in nigeria",
+                  "clicks": 0,
+                  "impressions": 11,
+                  "position": 10.7
+                },
+                {
+                  "query": "anums",
+                  "clicks": 0,
+                  "impressions": 2,
+                  "position": 11
+                },
+                {
+                  "query": "seo experts in nigeria",
+                  "clicks": 0,
+                  "impressions": 2,
+                  "position": 9.5
+                }
+              ]
+            },
+            "https://ugoanums.com/blog/": {
+              "total_queries": 3,
+              "total_impressions": 15,
+              "total_clicks": 0,
+              "other_top_queries": [
+                {
+                  "query": "seo expert in nigeria",
+                  "clicks": 0,
+                  "impressions": 11,
+                  "position": 10.7
+                },
+                {
+                  "query": "seo experts in nigeria",
+                  "clicks": 0,
+                  "impressions": 2,
+                  "position": 9.5
+                }
+              ]
+            },
+            "https://ugoanums.com/contact/": {
+              "total_queries": 3,
+              "total_impressions": 15,
+              "total_clicks": 0,
+              "other_top_queries": [
+                {
+                  "query": "seo expert in nigeria",
+                  "clicks": 0,
+                  "impressions": 11,
+                  "position": 10.7
+                },
+                {
+                  "query": "seo experts in nigeria",
+                  "clicks": 0,
+                  "impressions": 2,
+                  "position": 9.5
+                }
+              ]
+            },
+            "https://ugoanums.com/insights/best-seo-company-in-nigeria/": {
+              "total_queries": 61,
+              "total_impressions": 1280,
+              "total_clicks": 3,
+              "other_top_queries": [
+                {
+                  "query": "seo company in nigeria",
+                  "clicks": 0,
+                  "impressions": 198,
+                  "position": 44.5
+                },
+                {
+                  "query": "best seo company in nigeria",
+                  "clicks": 1,
+                  "impressions": 168,
+                  "position": 34.0
+                },
+                {
+                  "query": "seo companies in nigeria",
+                  "clicks": 0,
+                  "impressions": 123,
+                  "position": 36.5
+                }
+              ]
+            }
+          },
+          "page_types": {
+            "https://ugoanums.com/": "homepage",
+            "https://ugoanums.com/about/": "homepage",
+            "https://ugoanums.com/blog/": "homepage",
+            "https://ugoanums.com/contact/": "homepage",
+            "https://ugoanums.com/insights/best-seo-company-in-nigeria/": "content_page"
+          }
+        }
+      ]
+    },
+    {
+      "topic_id": 1,
+      "topic_name": "SEO Experts Nigeria",
+      "representative_query": "seo expert in nigeria",
+      "queries": [
+        "seo expert in nigeria",
+        "best seo expert in nigeria",
+        "seo experts in nigeria",
+        "seo specialist in nigeria"
+      ],
+      "issue_count": 4,
+      "total_severity": 79.7,
+      "avg_severity": 19.9,
+      "total_wasted_impressions": 90,
+      "issues": [
+        {
+          "query": "seo expert in nigeria",
+          "severity": 30.0,
+          "page_count": 5,
+          "total_clicks": 2,
+          "total_impressions": 563,
+          "wasted_impressions": 63,
+          "winner": {
+            "page": "https://ugoanums.com/",
+            "clicks": 2,
+            "impressions": 500,
+            "position": 11.5,
+            "ctr": 0.004
+          },
+          "competing_pages": [
+            {
+              "page": "https://ugoanums.com/about/",
+              "clicks": 0,
+              "impressions": 11,
+              "position": 10.7,
+              "ctr": 0
+            },
+            {
+              "page": "https://ugoanums.com/blog/",
+              "clicks": 0,
+              "impressions": 11,
+              "position": 10.7,
+              "ctr": 0
+            },
+            {
+              "page": "https://ugoanums.com/contact/",
+              "clicks": 0,
+              "impressions": 11,
+              "position": 10.7,
+              "ctr": 0
+            },
+            {
+              "page": "https://ugoanums.com/insights/best-seo-company-in-nigeria/",
+              "clicks": 0,
+              "impressions": 30,
+              "position": 55.7,
+              "ctr": 0
+            }
+          ],
+          "serp_analysis": {
+            "query": "seo expert in nigeria",
+            "serp_intent": "commercial",
+            "dominant_types": [
+              "listicles",
+              "local_results"
+            ],
+            "rewarded_format": "listicle / comparison",
+            "has_featured_snippet": false,
+            "featured_snippet": null
+          },
+          "recommendation": {
+            "recommended_winner": "https://ugoanums.com/about/",
+            "action_type": "differentiate-by-intent",
+            "serp_intent": "commercial",
+            "reasoning": "The SERP rewards individual SEO expert pages and listicles, not generic homepages. The about page with title 'About UGO Anums \u2014 SEO Consultant in Lagos, Nigeria' is already positioned as the personal expert page but needs stronger targeting. The homepage ranks for 47 other queries with 1,365 total impressions \u2014 a redirect would destroy these rankings. The content page ranks for 61 other queries \u2014 also cannot be redirected safely.",
+            "page_actions": [
+              {
+                "url": "https://ugoanums.com/about/",
+                "page_type": "homepage",
+                "action": "optimize-for-target-query",
+                "changes": "The current title 'About UGO Anums \u2014 SEO Consultant in Lagos, Nigeria' is geographically limited to Lagos when the query targets all of Nigeria, and the H1 'I got into SEO by accident' doesn't establish expertise authority that the SERP demands. Update the title to 'UGO Anums \u2014 SEO Expert in Nigeria | 9 Years, 40+ Clients' and change the H1 to 'Nigeria's SEO Expert with 9 Years of Proven Results' to match the individual expert format that dominates the SERP while expanding geographic scope from Lagos to Nigeria."
+              },
+              {
+                "url": "https://ugoanums.com/",
+                "page_type": "homepage",
+                "action": "differentiate-content",
+                "changes": "The current title 'UGO Anums Consulting - SEO & Growth Marketing Consultancy' and H1 'Your growth has a gap. I find it and fix it' position this as a broader growth consultancy rather than specifically targeting SEO expertise queries. Since this page ranks for 47 other queries with 1,365 total impressions, maintain the current broader positioning to protect these rankings while adding internal links to the about page for SEO-specific queries."
+              },
+              {
+                "url": "https://ugoanums.com/insights/best-seo-company-in-nigeria/",
+                "page_type": "content_page",
+                "action": "differentiate-content",
+                "changes": "The current title 'Best SEO Companies in Nigeria (2026) \u2014 8 Firms Ranked' targets company/agency searches while the cannibalized query seeks individual experts, and this page ranks for 61 other queries with 1,280 total impressions so cannot be redirected. Keep the current company-focused positioning to serve agency comparison queries while adding internal links to the about page when mentioning individual SEO expertise to create clear topical separation."
+              },
+              {
+                "url": "https://ugoanums.com/blog/",
+                "page_type": "homepage",
+                "action": "fix-technical-issue",
+                "changes": "The current title 'Page not found | UGO Anums Consulting' indicates this is a broken page that shouldn't be ranking for any queries. Fix the 404 error or implement a 301 redirect to the homepage to remove this page from search results entirely, as it provides no value to users searching for SEO expertise."
+              },
+              {
+                "url": "https://ugoanums.com/contact/",
+                "page_type": "homepage",
+                "action": "differentiate-content",
+                "changes": "The current title 'Contact UGO Anums' and H1 'Let's find your growth gap' are appropriate for a contact page and don't need modification since this page only ranks for 3 queries with 15 total impressions. Maintain the current contact-focused positioning while ensuring internal links point to the about page for users seeking SEO expert information rather than just contact details."
+              }
+            ]
+          },
+          "page_footprints": {
+            "https://ugoanums.com/": {
+              "total_queries": 47,
+              "total_impressions": 1365,
+              "total_clicks": 3,
+              "other_top_queries": [
+                {
+                  "query": "seo expert in lagos",
+                  "clicks": 1,
+                  "impressions": 197,
+                  "position": 9.1
+                },
+                {
+                  "query": "seo consultant lagos",
+                  "clicks": 0,
+                  "impressions": 136,
+                  "position": 14.7
+                },
+                {
+                  "query": "seo umough nigeria",
+                  "clicks": 0,
+                  "impressions": 96,
+                  "position": 1.7
+                }
+              ]
+            },
+            "https://ugoanums.com/about/": {
+              "total_queries": 5,
+              "total_impressions": 18,
+              "total_clicks": 0,
+              "other_top_queries": [
+                {
+                  "query": "anums",
+                  "clicks": 0,
+                  "impressions": 2,
+                  "position": 11
+                },
+                {
+                  "query": "seo experts in nigeria",
+                  "clicks": 0,
+                  "impressions": 2,
+                  "position": 9.5
+                },
+                {
+                  "query": "seo in nigeria",
+                  "clicks": 0,
+                  "impressions": 2,
+                  "position": 11
+                }
+              ]
+            },
+            "https://ugoanums.com/blog/": {
+              "total_queries": 3,
+              "total_impressions": 15,
+              "total_clicks": 0,
+              "other_top_queries": [
+                {
+                  "query": "seo experts in nigeria",
+                  "clicks": 0,
+                  "impressions": 2,
+                  "position": 9.5
+                },
+                {
+                  "query": "seo in nigeria",
+                  "clicks": 0,
+                  "impressions": 2,
+                  "position": 11
+                }
+              ]
+            },
+            "https://ugoanums.com/contact/": {
+              "total_queries": 3,
+              "total_impressions": 15,
+              "total_clicks": 0,
+              "other_top_queries": [
+                {
+                  "query": "seo experts in nigeria",
+                  "clicks": 0,
+                  "impressions": 2,
+                  "position": 9.5
+                },
+                {
+                  "query": "seo in nigeria",
+                  "clicks": 0,
+                  "impressions": 2,
+                  "position": 11
+                }
+              ]
+            },
+            "https://ugoanums.com/insights/best-seo-company-in-nigeria/": {
+              "total_queries": 61,
+              "total_impressions": 1280,
+              "total_clicks": 3,
+              "other_top_queries": [
+                {
+                  "query": "seo company in nigeria",
+                  "clicks": 0,
+                  "impressions": 198,
+                  "position": 44.5
+                },
+                {
+                  "query": "best seo company in nigeria",
+                  "clicks": 1,
+                  "impressions": 168,
+                  "position": 34.0
+                },
+                {
+                  "query": "seo companies in nigeria",
+                  "clicks": 0,
+                  "impressions": 123,
+                  "position": 36.5
+                }
+              ]
+            }
+          },
+          "page_types": {
+            "https://ugoanums.com/": "homepage",
+            "https://ugoanums.com/about/": "homepage",
+            "https://ugoanums.com/blog/": "homepage",
+            "https://ugoanums.com/contact/": "homepage",
+            "https://ugoanums.com/insights/best-seo-company-in-nigeria/": "content_page"
+          }
+        },
+        {
+          "query": "best seo expert in nigeria",
+          "severity": 22.2,
+          "page_count": 2,
+          "total_clicks": 0,
+          "total_impressions": 9,
+          "wasted_impressions": 5,
+          "winner": {
+            "page": "https://ugoanums.com/",
+            "clicks": 0,
+            "impressions": 4,
+            "position": 45.8,
+            "ctr": 0
+          },
+          "competing_pages": [
+            {
+              "page": "https://ugoanums.com/insights/best-seo-company-in-nigeria/",
+              "clicks": 0,
+              "impressions": 5,
+              "position": 35.6,
+              "ctr": 0
+            }
+          ],
+          "serp_analysis": {
+            "query": "best seo expert in nigeria",
+            "serp_intent": "informational",
+            "dominant_types": [
+              "listicles",
+              "local_results"
+            ],
+            "rewarded_format": "mixed",
+            "has_featured_snippet": false,
+            "featured_snippet": null
+          },
+          "recommendation": {
+            "recommended_winner": "https://ugoanums.com/insights/best-seo-company-in-nigeria/",
+            "action_type": "differentiate-by-intent",
+            "serp_intent": "informational",
+            "reasoning": "The SERP clearly rewards listicles and comparison content for this informational query, with results like 'Top 5 SEO Experts' and 'Top SEO Companies' ranking high. The blog post already matches this format perfectly with its ranking structure. Both pages rank for 47+ other queries with 1,200+ total impressions each \u2014 redirecting either would destroy significant ranking value across dozens of keywords.",
+            "page_actions": [
+              {
+                "url": "https://ugoanums.com/",
+                "page_type": "homepage",
+                "action": "differentiate-for-personal-branding",
+                "changes": "Your current title 'UGO Anums Consulting - SEO & Growth Marketing Consultancy' positions you as a consultancy rather than highlighting your personal expertise as an individual SEO expert, which is what users searching 'best seo expert in nigeria' are seeking. Update the title to 'Ugo Anums - Nigeria's Leading SEO Expert & Growth Marketing Consultant' to better capture the personal branding aspect that searchers want when looking for the 'best expert' rather than the 'best company', while your H1 'Your growth has a gap. I find it and fix it' already effectively communicates your unique value proposition."
+              },
+              {
+                "url": "https://ugoanums.com/insights/best-seo-company-in-nigeria/",
+                "page_type": "content_page",
+                "action": "maintain-as-primary-target",
+                "changes": "Your current title 'Best SEO Companies in Nigeria (2026) \u2014 8 Firms Ranked' and H1 'The Best SEO Companies in Nigeria (2026): 8 Firms, One Honest Ranking' perfectly match what Google is rewarding in the SERP for comparison queries, and since you include yourself as #1 in the ranking, this content naturally captures searches for both 'best seo company' and 'best seo expert' variants. The listicle format with detailed firm analysis aligns exactly with top-ranking results like 'Top 5 SEO Experts In Nigeria' and should continue targeting this query cluster."
+              }
+            ]
+          },
+          "page_footprints": {
+            "https://ugoanums.com/": {
+              "total_queries": 47,
+              "total_impressions": 1365,
+              "total_clicks": 3,
+              "other_top_queries": [
+                {
+                  "query": "seo expert in nigeria",
+                  "clicks": 2,
+                  "impressions": 500,
+                  "position": 11.5
+                },
+                {
+                  "query": "seo expert in lagos",
+                  "clicks": 1,
+                  "impressions": 197,
+                  "position": 9.1
+                },
+                {
+                  "query": "seo consultant lagos",
+                  "clicks": 0,
+                  "impressions": 136,
+                  "position": 14.7
+                }
+              ]
+            },
+            "https://ugoanums.com/insights/best-seo-company-in-nigeria/": {
+              "total_queries": 61,
+              "total_impressions": 1280,
+              "total_clicks": 3,
+              "other_top_queries": [
+                {
+                  "query": "seo company in nigeria",
+                  "clicks": 0,
+                  "impressions": 198,
+                  "position": 44.5
+                },
+                {
+                  "query": "best seo company in nigeria",
+                  "clicks": 1,
+                  "impressions": 168,
+                  "position": 34.0
+                },
+                {
+                  "query": "seo companies in nigeria",
+                  "clicks": 0,
+                  "impressions": 123,
+                  "position": 36.5
+                }
+              ]
+            }
+          },
+          "page_types": {
+            "https://ugoanums.com/": "homepage",
+            "https://ugoanums.com/insights/best-seo-company-in-nigeria/": "content_page"
+          }
+        },
+        {
+          "query": "seo experts in nigeria",
+          "severity": 15.0,
+          "page_count": 12,
+          "total_clicks": 0,
+          "total_impressions": 46,
+          "wasted_impressions": 18,
+          "winner": {
+            "page": "https://ugoanums.com/",
+            "clicks": 0,
+            "impressions": 28,
+            "position": 10.9,
+            "ctr": 0
+          },
+          "competing_pages": [
+            {
+              "page": "https://ugoanums.com/about",
+              "clicks": 0,
+              "impressions": 1,
+              "position": 12,
+              "ctr": 0
+            },
+            {
+              "page": "https://ugoanums.com/about/",
+              "clicks": 0,
+              "impressions": 2,
+              "position": 9.5,
+              "ctr": 0
+            },
+            {
+              "page": "https://ugoanums.com/blog/",
+              "clicks": 0,
+              "impressions": 2,
+              "position": 9.5,
+              "ctr": 0
+            },
+            {
+              "page": "https://ugoanums.com/contact/",
+              "clicks": 0,
+              "impressions": 2,
+              "position": 9.5,
+              "ctr": 0
+            },
+            {
+              "page": "https://ugoanums.com/insights/best-seo-company-in-nigeria/",
+              "clicks": 0,
+              "impressions": 5,
+              "position": 54.6,
+              "ctr": 0
+            },
+            {
+              "page": "https://ugoanums.com/service/",
+              "clicks": 0,
+              "impressions": 1,
+              "position": 12,
+              "ctr": 0
+            },
+            {
+              "page": "https://ugoanums.com/service/content-strategy/",
+              "clicks": 0,
+              "impressions": 1,
+              "position": 12,
+              "ctr": 0
+            },
+            {
+              "page": "https://ugoanums.com/service/conversion-rate-optimisation/",
+              "clicks": 0,
+              "impressions": 1,
+              "position": 12,
+              "ctr": 0
+            },
+            {
+              "page": "https://ugoanums.com/service/email-marketing/",
+              "clicks": 0,
+              "impressions": 1,
+              "position": 12,
+              "ctr": 0
+            },
+            {
+              "page": "https://ugoanums.com/service/paid-media/",
+              "clicks": 0,
+              "impressions": 1,
+              "position": 12,
+              "ctr": 0
+            },
+            {
+              "page": "https://ugoanums.com/service/seo-consulting/",
+              "clicks": 0,
+              "impressions": 1,
+              "position": 12,
+              "ctr": 0
+            }
+          ],
+          "serp_analysis": {
+            "query": "seo experts in nigeria",
+            "serp_intent": "commercial",
+            "dominant_types": [
+              "listicles",
+              "local_results"
+            ],
+            "rewarded_format": "listicle / comparison",
+            "has_featured_snippet": false,
+            "featured_snippet": null
+          },
+          "recommendation": {
+            "recommended_winner": "https://ugoanums.com/",
+            "action_type": "differentiate-by-intent",
+            "serp_intent": "commercial",
+            "reasoning": "The SERP rewards listicles and company directories for this commercial query, but the homepage ranks for 47 other queries with 1,365 total impressions \u2014 a redirect would destroy these rankings. The blog post about best SEO companies in Nigeria also ranks for 61 queries with 1,280 impressions, making it too valuable to redirect. Since all competing pages have zero clicks and positions below 40, the focus should be on differentiating intent rather than consolidating pages.",
+            "page_actions": [
+              {
+                "url": "https://ugoanums.com/",
+                "page_type": "homepage",
+                "action": "optimize-title-tag",
+                "changes": "The current title 'UGO Anums Consulting - SEO & Growth Marketing Consultancy' positions this as a general consultancy rather than highlighting expertise in Nigeria specifically, which is what searchers want to find when looking for 'seo experts in nigeria' \u2014 updating the title to 'UGO Anums - SEO Expert & Growth Marketing Consultant in Lagos, Nigeria' would better align with the commercial intent while maintaining the professional positioning that works for the 47 other queries this page ranks for."
+              },
+              {
+                "url": "https://ugoanums.com/about",
+                "page_type": "homepage",
+                "action": "301-redirect",
+                "changes": "The current title 'About UGO Anums \u2014 SEO Consultant in Lagos, Nigeria' is identical to the /about/ version and this page only ranks for the cannibalized query with 1 impression \u2014 redirecting this duplicate URL to https://ugoanums.com/about/ will consolidate the minimal ranking signals without harming any other keyword performance."
+              },
+              {
+                "url": "https://ugoanums.com/about/",
+                "page_type": "homepage",
+                "action": "maintain-differentiation",
+                "changes": "The current title 'About UGO Anums \u2014 SEO Consultant in Lagos, Nigeria' already properly targets Nigerian SEO searches and serves a different user intent (learning about the consultant personally) than the homepage's service-focused approach, so this page should maintain its current positioning to capture users who want to research the individual expert behind the consultancy."
+              },
+              {
+                "url": "https://ugoanums.com/blog/",
+                "page_type": "homepage",
+                "action": "fix-404-error",
+                "changes": "The current title 'Page not found | UGO Anums Consulting' indicates this is a 404 error page that shouldn't be ranking for any queries \u2014 this technical issue should be resolved by either creating proper blog content or implementing a 301 redirect to remove it from search results entirely."
+              },
+              {
+                "url": "https://ugoanums.com/contact/",
+                "page_type": "homepage",
+                "action": "maintain-differentiation",
+                "changes": "The current title 'Contact UGO Anums' serves a clear navigational purpose and the H1 'Let's find your growth gap' focuses on conversion rather than SEO expertise positioning, so this page should maintain its current intent differentiation to capture users ready to engage rather than those still researching SEO experts."
+              },
+              {
+                "url": "https://ugoanums.com/insights/best-seo-company-in-nigeria/",
+                "page_type": "content_page",
+                "action": "maintain-differentiation",
+                "changes": "The current title 'Best SEO Companies in Nigeria (2026) \u2014 8 Firms Ranked' and H1 'The Best SEO Companies in Nigeria (2026): 8 Firms, One Honest Ranking' perfectly match the listicle format that dominates the SERP for this query, and since this page ranks for 61 other queries with 1,280 total impressions, it should maintain its current comparative positioning to serve users specifically looking for company comparisons rather than individual expert profiles."
+              },
+              {
+                "url": "https://ugoanums.com/service/",
+                "page_type": "homepage",
+                "action": "maintain-differentiation",
+                "changes": "The current title 'Services | UGO Anums Consulting' and H1 'Six ways to grow. One goal.' focus on service categories rather than SEO expertise in Nigeria specifically, which appropriately differentiates this page's intent as a services overview rather than competing for the expert-focused query."
+              },
+              {
+                "url": "https://ugoanums.com/service/content-strategy/",
+                "page_type": "content_page",
+                "action": "maintain-differentiation",
+                "changes": "The current title 'Content Strategy Services | UGO Anums Consulting' focuses on a specific service offering rather than general SEO expertise, which correctly differentiates this page's intent for users seeking content strategy specifically rather than searching for SEO experts broadly."
+              },
+              {
+                "url": "https://ugoanums.com/service/conversion-rate-optimisation/",
+                "page_type": "content_page",
+                "action": "maintain-differentiation",
+                "changes": "The current title 'Conversion Rate Optimisation Services | UGO Anums Consulting' targets a specific service that's distinct from general SEO expertise, appropriately differentiating this page's intent for CRO-focused searches rather than broad SEO expert queries."
+              },
+              {
+                "url": "https://ugoanums.com/service/email-marketing/",
+                "page_type": "content_page",
+                "action": "maintain-differentiation",
+                "changes": "The current title 'Email Marketing Services | UGO Anums Consulting' and H1 'Your list is your most underused growth asset' focus specifically on email marketing rather than SEO expertise, correctly maintaining intent differentiation for users seeking email marketing services rather than SEO experts."
+              },
+              {
+                "url": "https://ugoanums.com/service/paid-media/",
+                "page_type": "content_page",
+                "action": "maintain-differentiation",
+                "changes": "The current title 'Paid Media Services | UGO Anums Consulting' and H1 'Google Ads and Meta Ads built around buyer intent' focus on paid advertising rather than organic SEO expertise, appropriately differentiating this page for users seeking paid media services rather than SEO experts."
+              },
+              {
+                "url": "https://ugoanums.com/service/seo-consulting/",
+                "page_type": "content_page",
+                "action": "enhance-location-targeting",
+                "changes": "The current title 'SEO Services | UGO Anums Consulting' focuses on SEO services but lacks the location targeting that would help it compete for 'seo experts in nigeria' \u2014 updating to 'SEO Consulting Services in Nigeria | UGO Anums' would better align with the geographic intent while maintaining the service-focused differentiation from the homepage's broader expert positioning."
+              }
+            ]
+          },
+          "page_footprints": {
+            "https://ugoanums.com/": {
+              "total_queries": 47,
+              "total_impressions": 1365,
+              "total_clicks": 3,
+              "other_top_queries": [
+                {
+                  "query": "seo expert in nigeria",
+                  "clicks": 2,
+                  "impressions": 500,
+                  "position": 11.5
+                },
+                {
+                  "query": "seo expert in lagos",
+                  "clicks": 1,
+                  "impressions": 197,
+                  "position": 9.1
+                },
+                {
+                  "query": "seo consultant lagos",
+                  "clicks": 0,
+                  "impressions": 136,
+                  "position": 14.7
+                }
+              ]
+            },
+            "https://ugoanums.com/about": {
+              "total_queries": 1,
+              "total_impressions": 1,
+              "total_clicks": 0,
+              "other_top_queries": []
+            },
+            "https://ugoanums.com/about/": {
+              "total_queries": 5,
+              "total_impressions": 18,
+              "total_clicks": 0,
+              "other_top_queries": [
+                {
+                  "query": "seo expert in nigeria",
+                  "clicks": 0,
+                  "impressions": 11,
+                  "position": 10.7
+                },
+                {
+                  "query": "anums",
+                  "clicks": 0,
+                  "impressions": 2,
+                  "position": 11
+                },
+                {
+                  "query": "seo in nigeria",
+                  "clicks": 0,
+                  "impressions": 2,
+                  "position": 11
+                }
+              ]
+            },
+            "https://ugoanums.com/blog/": {
+              "total_queries": 3,
+              "total_impressions": 15,
+              "total_clicks": 0,
+              "other_top_queries": [
+                {
+                  "query": "seo expert in nigeria",
+                  "clicks": 0,
+                  "impressions": 11,
+                  "position": 10.7
+                },
+                {
+                  "query": "seo in nigeria",
+                  "clicks": 0,
+                  "impressions": 2,
+                  "position": 11
+                }
+              ]
+            },
+            "https://ugoanums.com/contact/": {
+              "total_queries": 3,
+              "total_impressions": 15,
+              "total_clicks": 0,
+              "other_top_queries": [
+                {
+                  "query": "seo expert in nigeria",
+                  "clicks": 0,
+                  "impressions": 11,
+                  "position": 10.7
+                },
+                {
+                  "query": "seo in nigeria",
+                  "clicks": 0,
+                  "impressions": 2,
+                  "position": 11
+                }
+              ]
+            },
+            "https://ugoanums.com/insights/best-seo-company-in-nigeria/": {
+              "total_queries": 61,
+              "total_impressions": 1280,
+              "total_clicks": 3,
+              "other_top_queries": [
+                {
+                  "query": "seo company in nigeria",
+                  "clicks": 0,
+                  "impressions": 198,
+                  "position": 44.5
+                },
+                {
+                  "query": "best seo company in nigeria",
+                  "clicks": 1,
+                  "impressions": 168,
+                  "position": 34.0
+                },
+                {
+                  "query": "seo companies in nigeria",
+                  "clicks": 0,
+                  "impressions": 123,
+                  "position": 36.5
+                }
+              ]
+            },
+            "https://ugoanums.com/service/": {
+              "total_queries": 1,
+              "total_impressions": 1,
+              "total_clicks": 0,
+              "other_top_queries": []
+            },
+            "https://ugoanums.com/service/content-strategy/": {
+              "total_queries": 1,
+              "total_impressions": 1,
+              "total_clicks": 0,
+              "other_top_queries": []
+            },
+            "https://ugoanums.com/service/conversion-rate-optimisation/": {
+              "total_queries": 1,
+              "total_impressions": 1,
+              "total_clicks": 0,
+              "other_top_queries": []
+            },
+            "https://ugoanums.com/service/email-marketing/": {
+              "total_queries": 1,
+              "total_impressions": 1,
+              "total_clicks": 0,
+              "other_top_queries": []
+            },
+            "https://ugoanums.com/service/paid-media/": {
+              "total_queries": 2,
+              "total_impressions": 2,
+              "total_clicks": 0,
+              "other_top_queries": [
+                {
+                  "query": "\"retargeting\" ads or advertising",
+                  "clicks": 0,
+                  "impressions": 1,
+                  "position": 89
+                }
+              ]
+            },
+            "https://ugoanums.com/service/seo-consulting/": {
+              "total_queries": 1,
+              "total_impressions": 1,
+              "total_clicks": 0,
+              "other_top_queries": []
+            }
+          },
+          "page_types": {
+            "https://ugoanums.com/": "homepage",
+            "https://ugoanums.com/about": "homepage",
+            "https://ugoanums.com/about/": "homepage",
+            "https://ugoanums.com/blog/": "homepage",
+            "https://ugoanums.com/contact/": "homepage",
+            "https://ugoanums.com/insights/best-seo-company-in-nigeria/": "content_page",
+            "https://ugoanums.com/service/": "homepage",
+            "https://ugoanums.com/service/content-strategy/": "content_page",
+            "https://ugoanums.com/service/conversion-rate-optimisation/": "content_page",
+            "https://ugoanums.com/service/email-marketing/": "content_page",
+            "https://ugoanums.com/service/paid-media/": "content_page",
+            "https://ugoanums.com/service/seo-consulting/": "content_page"
+          }
+        },
+        {
+          "query": "seo specialist in nigeria",
+          "severity": 12.5,
+          "page_count": 2,
+          "total_clicks": 0,
+          "total_impressions": 42,
+          "wasted_impressions": 4,
+          "winner": {
+            "page": "https://ugoanums.com/",
+            "clicks": 0,
+            "impressions": 38,
+            "position": 13.7,
+            "ctr": 0
+          },
+          "competing_pages": [
+            {
+              "page": "https://ugoanums.com/insights/best-seo-company-in-nigeria/",
+              "clicks": 0,
+              "impressions": 4,
+              "position": 56.5,
+              "ctr": 0
+            }
+          ],
+          "serp_analysis": {
+            "query": "seo specialist in nigeria",
+            "serp_intent": "commercial",
+            "dominant_types": [
+              "listicles",
+              "local_results"
+            ],
+            "rewarded_format": "listicle / comparison",
+            "has_featured_snippet": false,
+            "featured_snippet": null
+          },
+          "recommendation": {
+            "recommended_winner": "https://ugoanums.com/insights/best-seo-company-in-nigeria/",
+            "action_type": "differentiate-by-intent",
+            "serp_intent": "commercial",
+            "reasoning": "The SERP is dominated by listicles and comparison pages ranking SEO companies/specialists, which matches the content page's format perfectly. The homepage ranks for 47 other queries with 1,365 total impressions and the content page ranks for 61 queries with 1,280 impressions \u2014 redirecting either would destroy these rankings. The content page already targets the right commercial intent but needs optimization.",
+            "page_actions": [
+              {
+                "url": "https://ugoanums.com/",
+                "page_type": "homepage",
+                "action": "differentiate for individual consultant positioning",
+                "changes": "The current title 'UGO Anums Consulting - SEO & Growth Marketing Consultancy' and H1 'Your growth has a gap. I find it and fix it.' position this as a personal consultant rather than competing for 'SEO specialist' searches where users want to compare multiple options. Keep the personal consultant positioning and strengthen it with internal links to the comparison page for users seeking multiple options, while expanding the 'About' section to include location-specific credentials and case studies from Nigerian clients to capture branded searches for the consultant personally."
+              },
+              {
+                "url": "https://ugoanums.com/insights/best-seo-company-in-nigeria/",
+                "page_type": "content_page",
+                "action": "optimize for specialist/individual queries",
+                "changes": "The current title 'Best SEO Companies in Nigeria (2026) \u2014 8 Firms Ranked' and H1 'The Best SEO Companies in Nigeria (2026): 8 Firms, One Honest Ranking' perfectly match what's ranking in the SERP, but the page should expand to include a dedicated section for individual SEO specialists versus agencies since the query includes 'specialist' which can mean individual consultants, and add geographical coverage beyond just Lagos to capture the broader 'Nigeria' search intent while maintaining the successful listicle format."
+              }
+            ]
+          },
+          "page_footprints": {
+            "https://ugoanums.com/": {
+              "total_queries": 47,
+              "total_impressions": 1365,
+              "total_clicks": 3,
+              "other_top_queries": [
+                {
+                  "query": "seo expert in nigeria",
+                  "clicks": 2,
+                  "impressions": 500,
+                  "position": 11.5
+                },
+                {
+                  "query": "seo expert in lagos",
+                  "clicks": 1,
+                  "impressions": 197,
+                  "position": 9.1
+                },
+                {
+                  "query": "seo consultant lagos",
+                  "clicks": 0,
+                  "impressions": 136,
+                  "position": 14.7
+                }
+              ]
+            },
+            "https://ugoanums.com/insights/best-seo-company-in-nigeria/": {
+              "total_queries": 61,
+              "total_impressions": 1280,
+              "total_clicks": 3,
+              "other_top_queries": [
+                {
+                  "query": "seo company in nigeria",
+                  "clicks": 0,
+                  "impressions": 198,
+                  "position": 44.5
+                },
+                {
+                  "query": "best seo company in nigeria",
+                  "clicks": 1,
+                  "impressions": 168,
+                  "position": 34.0
+                },
+                {
+                  "query": "seo companies in nigeria",
+                  "clicks": 0,
+                  "impressions": 123,
+                  "position": 36.5
+                }
+              ]
+            }
+          },
+          "page_types": {
+            "https://ugoanums.com/": "homepage",
+            "https://ugoanums.com/insights/best-seo-company-in-nigeria/": "content_page"
+          }
+        }
+      ]
+    },
+    {
+      "topic_id": 2,
+      "topic_name": "Anums",
+      "representative_query": "anums",
+      "queries": [
+        "anums"
+      ],
+      "issue_count": 1,
+      "total_severity": 31.0,
+      "avg_severity": 31.0,
+      "total_wasted_impressions": 2,
+      "issues": [
+        {
+          "query": "anums",
+          "severity": 31.0,
+          "page_count": 2,
+          "total_clicks": 0,
+          "total_impressions": 8,
+          "wasted_impressions": 2,
+          "winner": {
+            "page": "https://ugoanums.com/",
+            "clicks": 0,
+            "impressions": 6,
+            "position": 8.3,
+            "ctr": 0
+          },
+          "competing_pages": [
+            {
+              "page": "https://ugoanums.com/about/",
+              "clicks": 0,
+              "impressions": 2,
+              "position": 11,
+              "ctr": 0
+            }
+          ],
+          "serp_analysis": {
+            "query": "anums",
+            "serp_intent": "navigational",
+            "dominant_types": [
+              "blog_posts"
+            ],
+            "rewarded_format": "mixed",
+            "has_featured_snippet": false,
+            "featured_snippet": null
+          },
+          "recommendation": {
+            "recommended_winner": "https://ugoanums.com/",
+            "action_type": "monitor-only",
+            "serp_intent": "navigational",
+            "reasoning": "This is a navigational query where users searching 'anums' are looking for the brand/person UGO Anums. Both the homepage and about page serve this navigational intent correctly \u2014 users landing on either page when searching the brand name are being served appropriately. Navigational cannibalization within the same brand is not a problem requiring intervention.",
+            "page_actions": [
+              {
+                "url": "https://ugoanums.com/",
+                "page_type": "homepage",
+                "action": "no changes needed",
+                "changes": "The current title 'UGO Anums Consulting - SEO & Growth Marketing Consultancy' already includes the brand name 'Anums' and clearly establishes this as the primary brand page for navigational searches. Since this page ranks for 47 other queries with 1,365 total impressions, maintaining the current optimization approach is best to protect these existing rankings while naturally serving brand name searches."
+              },
+              {
+                "url": "https://ugoanums.com/about/",
+                "page_type": "homepage",
+                "action": "no changes needed",
+                "changes": "The current title 'About UGO Anums \u2014 SEO Consultant in Lagos, Nigeria' appropriately includes the brand name and serves users who want to learn more about the person behind the brand after searching 'anums'. This page fulfills a legitimate user need for navigational queries and should continue operating as the brand's about page without modification."
+              }
+            ]
+          },
+          "page_footprints": {
+            "https://ugoanums.com/": {
+              "total_queries": 47,
+              "total_impressions": 1365,
+              "total_clicks": 3,
+              "other_top_queries": [
+                {
+                  "query": "seo expert in nigeria",
+                  "clicks": 2,
+                  "impressions": 500,
+                  "position": 11.5
+                },
+                {
+                  "query": "seo expert in lagos",
+                  "clicks": 1,
+                  "impressions": 197,
+                  "position": 9.1
+                },
+                {
+                  "query": "seo consultant lagos",
+                  "clicks": 0,
+                  "impressions": 136,
+                  "position": 14.7
+                }
+              ]
+            },
+            "https://ugoanums.com/about/": {
+              "total_queries": 5,
+              "total_impressions": 18,
+              "total_clicks": 0,
+              "other_top_queries": [
+                {
+                  "query": "seo expert in nigeria",
+                  "clicks": 0,
+                  "impressions": 11,
+                  "position": 10.7
+                },
+                {
+                  "query": "seo experts in nigeria",
+                  "clicks": 0,
+                  "impressions": 2,
+                  "position": 9.5
+                },
+                {
+                  "query": "seo in nigeria",
+                  "clicks": 0,
+                  "impressions": 2,
+                  "position": 11
+                }
+              ]
+            }
+          },
+          "page_types": {
+            "https://ugoanums.com/": "homepage",
+            "https://ugoanums.com/about/": "homepage"
+          }
+        }
+      ]
+    },
+    {
+      "topic_id": 3,
+      "topic_name": "SEO Companies Nigeria",
+      "representative_query": "best seo company in nigeria",
+      "queries": [
+        "best seo company in nigeria"
+      ],
+      "issue_count": 1,
+      "total_severity": 27.5,
+      "avg_severity": 27.5,
+      "total_wasted_impressions": 11,
+      "issues": [
+        {
+          "query": "best seo company in nigeria",
+          "severity": 27.5,
+          "page_count": 8,
+          "total_clicks": 1,
+          "total_impressions": 179,
+          "wasted_impressions": 11,
+          "winner": {
+            "page": "https://ugoanums.com/insights/best-seo-company-in-nigeria/",
+            "clicks": 1,
+            "impressions": 168,
+            "position": 34.0,
+            "ctr": 0.006
+          },
+          "competing_pages": [
+            {
+              "page": "https://ugoanums.com/insights/best-seo-company-in-nigeria/#sec-1",
+              "clicks": 0,
+              "impressions": 2,
+              "position": 9,
+              "ctr": 0
+            },
+            {
+              "page": "https://ugoanums.com/insights/best-seo-company-in-nigeria/#sec-2",
+              "clicks": 0,
+              "impressions": 2,
+              "position": 9,
+              "ctr": 0
+            },
+            {
+              "page": "https://ugoanums.com/insights/best-seo-company-in-nigeria/#sec-3",
+              "clicks": 0,
+              "impressions": 1,
+              "position": 7,
+              "ctr": 0
+            },
+            {
+              "page": "https://ugoanums.com/insights/best-seo-company-in-nigeria/#sec-4",
+              "clicks": 0,
+              "impressions": 2,
+              "position": 9,
+              "ctr": 0
+            },
+            {
+              "page": "https://ugoanums.com/insights/best-seo-company-in-nigeria/#sec-5",
+              "clicks": 0,
+              "impressions": 2,
+              "position": 9,
+              "ctr": 0
+            },
+            {
+              "page": "https://ugoanums.com/insights/best-seo-company-in-nigeria/#sec-6",
+              "clicks": 0,
+              "impressions": 1,
+              "position": 7,
+              "ctr": 0
+            },
+            {
+              "page": "https://ugoanums.com/insights/best-seo-company-in-nigeria/#sec-criteria",
+              "clicks": 0,
+              "impressions": 1,
+              "position": 7,
+              "ctr": 0
+            }
+          ],
+          "serp_analysis": {
+            "query": "best seo company in nigeria",
+            "serp_intent": "commercial",
+            "dominant_types": [
+              "listicles",
+              "local_results"
+            ],
+            "rewarded_format": "listicle / comparison",
+            "has_featured_snippet": false,
+            "featured_snippet": null
+          },
+          "recommendation": {
+            "recommended_winner": "https://ugoanums.com/insights/best-seo-company-in-nigeria/",
+            "action_type": "noindex-fragments",
+            "serp_intent": "commercial",
+            "reasoning": "This is a clear case of URL fragment cannibalization where the main page ranks for 61 other queries with 1,280 total impressions \u2014 a redirect would destroy these rankings. The fragment URLs (#sec-1, #sec-2, etc.) are indexing separately and splitting authority from the main page, which perfectly matches the commercial intent shown in the SERP with its listicle format and comprehensive company rankings.",
+            "page_actions": [
+              {
+                "url": "https://ugoanums.com/insights/best-seo-company-in-nigeria/",
+                "page_type": "content_page",
+                "action": "keep-as-primary",
+                "changes": "The current title 'Best SEO Companies in Nigeria (2026) \u2014 8 Firms Ranked' and H1 'The Best SEO Companies in Nigeria (2026): 8 Firms, One Honest Ranking' already perfectly target the commercial intent of users searching for the best SEO companies, matching the listicle format that dominates the SERP, so instead of changing the title focus on adding internal links from other service pages to boost this page's authority and help it climb from position 34 to compete with the Clutch and GoodFirms rankings in the top 3."
+              },
+              {
+                "url": "https://ugoanums.com/insights/best-seo-company-in-nigeria/#sec-1",
+                "page_type": "content_page",
+                "action": "noindex-fragment",
+                "changes": "This fragment URL is creating unnecessary indexing competition with the main page and should be prevented from appearing in search results through robots meta noindex or by removing the fragment from the sitemap, allowing all ranking authority to consolidate on the main page URL."
+              },
+              {
+                "url": "https://ugoanums.com/insights/best-seo-company-in-nigeria/#sec-2",
+                "page_type": "content_page",
+                "action": "noindex-fragment",
+                "changes": "This fragment URL is creating unnecessary indexing competition with the main page and should be prevented from appearing in search results through robots meta noindex or by removing the fragment from the sitemap, allowing all ranking authority to consolidate on the main page URL."
+              },
+              {
+                "url": "https://ugoanums.com/insights/best-seo-company-in-nigeria/#sec-3",
+                "page_type": "content_page",
+                "action": "noindex-fragment",
+                "changes": "This fragment URL is creating unnecessary indexing competition with the main page and should be prevented from appearing in search results through robots meta noindex or by removing the fragment from the sitemap, allowing all ranking authority to consolidate on the main page URL."
+              },
+              {
+                "url": "https://ugoanums.com/insights/best-seo-company-in-nigeria/#sec-4",
+                "page_type": "content_page",
+                "action": "noindex-fragment",
+                "changes": "This fragment URL is creating unnecessary indexing competition with the main page and should be prevented from appearing in search results through robots meta noindex or by removing the fragment from the sitemap, allowing all ranking authority to consolidate on the main page URL."
+              },
+              {
+                "url": "https://ugoanums.com/insights/best-seo-company-in-nigeria/#sec-5",
+                "page_type": "content_page",
+                "action": "noindex-fragment",
+                "changes": "This fragment URL is creating unnecessary indexing competition with the main page and should be prevented from appearing in search results through robots meta noindex or by removing the fragment from the sitemap, allowing all ranking authority to consolidate on the main page URL."
+              },
+              {
+                "url": "https://ugoanums.com/insights/best-seo-company-in-nigeria/#sec-6",
+                "page_type": "content_page",
+                "action": "noindex-fragment",
+                "changes": "This fragment URL is creating unnecessary indexing competition with the main page and should be prevented from appearing in search results through robots meta noindex or by removing the fragment from the sitemap, allowing all ranking authority to consolidate on the main page URL."
+              },
+              {
+                "url": "https://ugoanums.com/insights/best-seo-company-in-nigeria/#sec-criteria",
+                "page_type": "content_page",
+                "action": "noindex-fragment",
+                "changes": "This fragment URL is creating unnecessary indexing competition with the main page and should be prevented from appearing in search results through robots meta noindex or by removing the fragment from the sitemap, allowing all ranking authority to consolidate on the main page URL."
+              }
+            ]
+          },
+          "page_footprints": {
+            "https://ugoanums.com/insights/best-seo-company-in-nigeria/": {
+              "total_queries": 61,
+              "total_impressions": 1280,
+              "total_clicks": 3,
+              "other_top_queries": [
+                {
+                  "query": "seo company in nigeria",
+                  "clicks": 0,
+                  "impressions": 198,
+                  "position": 44.5
+                },
+                {
+                  "query": "seo companies in nigeria",
+                  "clicks": 0,
+                  "impressions": 123,
+                  "position": 36.5
+                },
+                {
+                  "query": "seo company",
+                  "clicks": 0,
+                  "impressions": 91,
+                  "position": 51.5
+                }
+              ]
+            },
+            "https://ugoanums.com/insights/best-seo-company-in-nigeria/#sec-1": {
+              "total_queries": 1,
+              "total_impressions": 2,
+              "total_clicks": 0,
+              "other_top_queries": []
+            },
+            "https://ugoanums.com/insights/best-seo-company-in-nigeria/#sec-2": {
+              "total_queries": 1,
+              "total_impressions": 2,
+              "total_clicks": 0,
+              "other_top_queries": []
+            },
+            "https://ugoanums.com/insights/best-seo-company-in-nigeria/#sec-3": {
+              "total_queries": 1,
+              "total_impressions": 1,
+              "total_clicks": 0,
+              "other_top_queries": []
+            },
+            "https://ugoanums.com/insights/best-seo-company-in-nigeria/#sec-4": {
+              "total_queries": 1,
+              "total_impressions": 2,
+              "total_clicks": 0,
+              "other_top_queries": []
+            },
+            "https://ugoanums.com/insights/best-seo-company-in-nigeria/#sec-5": {
+              "total_queries": 1,
+              "total_impressions": 2,
+              "total_clicks": 0,
+              "other_top_queries": []
+            },
+            "https://ugoanums.com/insights/best-seo-company-in-nigeria/#sec-6": {
+              "total_queries": 1,
+              "total_impressions": 1,
+              "total_clicks": 0,
+              "other_top_queries": []
+            },
+            "https://ugoanums.com/insights/best-seo-company-in-nigeria/#sec-criteria": {
+              "total_queries": 1,
+              "total_impressions": 1,
+              "total_clicks": 0,
+              "other_top_queries": []
+            }
+          },
+          "page_types": {
+            "https://ugoanums.com/insights/best-seo-company-in-nigeria/": "content_page",
+            "https://ugoanums.com/insights/best-seo-company-in-nigeria/#sec-1": "content_page",
+            "https://ugoanums.com/insights/best-seo-company-in-nigeria/#sec-2": "content_page",
+            "https://ugoanums.com/insights/best-seo-company-in-nigeria/#sec-3": "content_page",
+            "https://ugoanums.com/insights/best-seo-company-in-nigeria/#sec-4": "content_page",
+            "https://ugoanums.com/insights/best-seo-company-in-nigeria/#sec-5": "content_page",
+            "https://ugoanums.com/insights/best-seo-company-in-nigeria/#sec-6": "content_page",
+            "https://ugoanums.com/insights/best-seo-company-in-nigeria/#sec-criteria": "content_page"
+          }
+        }
+      ]
+    }
+  ]
+}
